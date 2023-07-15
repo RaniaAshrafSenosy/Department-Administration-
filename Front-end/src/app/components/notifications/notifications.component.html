@@ -1,0 +1,13 @@
+<div class="background px-4 py-2" >
+  <div *ngFor="let not of array" class="mainfntclr my-2 py-3 px-4 rounded-3 border border-3 bordr2 bg-white ">
+    <span class="w-100 d-flex justify-content-end " (click)="archive(not.id)"> <i class="fa-solid fa-trash me-4"></i></span>
+
+    <div class="fs-4">
+      {{not.notification.title}}
+    </div>
+    <div>{{not.notification.desc}}</div>
+
+  </div>
+</div>
+
+

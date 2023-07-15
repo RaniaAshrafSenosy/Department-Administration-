@@ -1,0 +1,54 @@
+<div class="m-4">
+  <form [formGroup]="Form" (ngSubmit)="submitForm(Form)">
+    <label for="credit_hours">{{ 'Credit Hours' | translate }}</label>
+    <input
+      [value]="courseInstance?.credit_hours"
+      type="text"
+      id="credit_hours"
+      formControlName="credit_hours"
+      class="form-control my-3"
+    />
+    <div *ngIf="Form.get('credit_hours')&& Form.get('credit_hours')?.touched">
+      <p *ngIf="Form.get('credit_hours')?.getError('pattern')" class="text-danger">{{ 'Credit Hours should have values from 0-6' | translate }}</p>
+  </div>
+    <label for="course_desc">{{ 'Course Description' | translate }}</label>
+    <input
+      [value]="courseInstance?.course_desc"
+      type="text"
+      id="course_desc"
+      formControlName="course_desc"
+      class="form-control my-3"
+    />
+    <div *ngIf="Form.get('course_desc')&& Form.get('course_desc')?.touched">
+      <p *ngIf="Form.get('course_desc')?.getError('pattern')" class="text-danger"> {{ 'Course Description should be only words' | translate }}</p>
+  </div>
+    <label for="prerequisites">{{ 'Prerequisites' | translate }}</label>
+    <input
+      [value]="courseInstance?.prerequisites"
+      type="text"
+      id="prerequisites"
+      formControlName="prerequisites"
+      class="form-control my-3"
+    />
+    <p class="text-danger">{{ 'You should split each course with ,' | translate }}</p>
+    <div *ngIf="Form.get('prerequisites')&& Form.get('prerequisites')?.touched">
+      <p *ngIf="Form.get('prerequisites')?.getError('pattern')" class="text-danger">{{ 'Prerequisites should only be words' | translate }}</p>
+  </div>
+    <label  class="fw-bold" for="course_specs">{{ 'Course Specs File' | translate }}</label>
+    <input
+      (change)="oncourseSpecsFileSelected($event)"
+      name="course_specs"
+       type="file"
+        id="course_specs"
+        formControlName="course_specs"
+         class="form-control my-3">
+    <div *ngIf="Form.get('course_specs')&& Form.get('course_specs')?.touched">
+        <p *ngIf="Form.get('course_specs')?.getError('required')" class="text-danger">{{ 'course_specs File is Required' | translate }}</p>
+    </div>
+    <div  class="border-2  form-control w-25" *ngIf="this?.courseSpecsName?.length>0">
+      <a  class="text-decoration-none mainfntclr" [href]="this.courseSpecs" target="_blank">{{this?.courseSpecsName}}</a>
+  </div>
+  <button  [disabled]="Form.invalid" class="btn btn-primary float-end"> {{ 'Submit' | translate }}</button>
+    <div class="clear-both"></div>
+</form>
+</div>

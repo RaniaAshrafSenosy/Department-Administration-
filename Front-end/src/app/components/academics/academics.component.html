@@ -1,0 +1,81 @@
+<div class=" w-100 pt-4 addannouncement ">
+  <div   class=" my-4   ms-5   mx-auto  me-5">
+    <input class="py-3 px-4  rounded-pill input-group w-100  text-dark " placeholder="Search User?...." (keyup)="search($event)">
+  </div>
+  <div *ngIf="visible">
+    <div  *ngFor="let item of departmentNames"  class="px-5">
+      <h4 class="">{{item}} {{ 'Department' | translate }}:</h4>
+      <div  class="row d-flex justify-content-center  ">
+        <div *ngFor="let professor of getProfessors(item) "  class="bg-light  announcement col-lg-3 mx-3  py-3 mb-3  border border-3 border-dark borderclr rounded-5">
+          <div (click)="getProfile(professor?.user_id)" class="d-flex">
+            <div class="clas me-2">
+
+                <img *ngIf="professor?.image.length>base.length" [src]="professor?.image"  class="rounded-circle profileImage w-100">
+                <i *ngIf="professor?.image.length==base.length" class=" fa-solid  font fa-circle-user"></i>
+            </div>
+            <div>
+              <h4 class="username">{{professor?.full_name}}</h4>
+              <span> {{ 'Professor' | translate }}</span>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let ta of getTAs(item)"  class="announcement bg-light col-lg-3 mx-3  py-3 mb-3  border border-3 border-dark  rounded-5">
+          <div  (click)="getProfile(ta?.user_id)"class="d-flex">
+            <div class="clas me-2">
+
+              <img *ngIf="ta?.image.length>base.length" [src]="ta?.image"  class="rounded-circle profileImage w-100">
+              <i *ngIf="ta?.image.length==base.length" class=" fa-solid  font fa-circle-user"></i>
+            </div>
+            <div>
+              <h4 class="username">{{ta?.full_name}}</h4>
+              <!-- <span class="d-block">{{i}}</span> -->
+              <span> {{ 'Teaching Assistant' | translate }}</span>
+            </div>
+          </div>
+        </div>
+        <div *ngFor="let secretaries of getSecretaries(item)"  class="announcement col-lg-3 mx-3  py-3 mb-3  border border-3 border-dark  rounded-5">
+          <div  (click)="getProfile(secretaries?.user_id)" class="d-flex">
+            <div class="clas me-2">
+
+              <img *ngIf="secretaries?.image.length>base.length" [src]="secretaries?.image"  class="rounded-circle profileImage w-100">
+              <i *ngIf="secretaries?.image.length==base.length" class=" fa-solid  font fa-circle-user"></i>
+          </div>
+            <div>
+              <h4 class="username">{{secretaries?.full_name}}</h4>
+              <!-- <span class="d-block">{{i}}</span> -->
+              <span> {{ 'Secretary' | translate }}</span>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    </div>
+  </div>
+  <div *ngIf="!visible" class="height">
+    <div  class="px-5">
+      <!-- <h4 class="">{{item}} Department:</h4> -->
+      <div  class="row d-flex justify-content-center  ">
+        <div *ngFor="let professor of array"  class="bg-light  announcement col-lg-3 mx-3  py-3 mb-3  border border-3 border-dark borderclr rounded-5">
+          <!-- {{professor}} -->
+          <div (click)="getProfile(professor?.user_id)"   class="d-flex " role="button">
+            <!--  -->
+            <div class="clas me-2">
+
+              <img *ngIf="professor?.image.length>base.length" [src]="professor?.image"  class="rounded-circle w-100">
+              <i *ngIf="professor?.image.length==base.length" class=" fa-solid  font fa-circle-user"></i>
+          </div>
+            <div>
+              <h4 class="username">{{professor?.full_name}}</h4>
+              <span> {{ 'Professor' | translate }}</span>
+            </div>
+          </div>
+        </div>
+
+    </div>
+    </div>
+  </div>

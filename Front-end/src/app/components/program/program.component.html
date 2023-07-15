@@ -1,0 +1,15 @@
+<div class="container ">
+  <h1 class="mt-3">{{programs.program_name}}</h1>
+  <p class="mx-4">{{programs?.program_desc}}</p>
+  <h3 class="mt-4"> {{ 'Head of program' | translate }}</h3>
+  <span  role="button"  class="mt-1 mx-4 fs-5">{{programs?.program_head}}</span>
+
+  <section>
+    <div class="mt-3 fs-3 fw-semibold">
+       {{ 'Courses' | translate }}
+    </div>
+    <ul class="" *ngFor="let course of programs?.course_names">
+      <li role="button" (click)="openCourse(course.course_id)">{{course.course_name}}</li>
+    </ul>
+  </section>
+</div>

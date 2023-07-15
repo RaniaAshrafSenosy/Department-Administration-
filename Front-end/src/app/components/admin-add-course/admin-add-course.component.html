@@ -1,0 +1,79 @@
+<h2 class="mt-5 my-3 mainfntclr fw-bold">{{ 'Add Course' | translate }}</h2>
+<form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+  <label class="fw-bold mainfntclr" for="course_name"> {{ 'Course Name' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input type="text" id="course_name" formControlName="course_name" class="form-control my-3">
+  <div *ngIf="registerForm.get('course_name') && registerForm.get('course_name')?.touched">
+      <p *ngIf="registerForm.get('course_name')?.getError('required')" class="text-danger"> {{ 'Course Name is Required' | translate }}</p>
+      <p *ngIf="registerForm.get('course_name')?.getError('pattern')" class="text-danger"> {{ 'Course Name can not contain numbers' | translate }}</p>
+    </div>
+
+      <div>
+        <label for="dept_code" class="me-1 my-3  fw-bold mainfntclr form-label"> {{ 'Department Code' | translate }}    <span class="text-danger">*</span></label>
+      <select  [(ngModel)]="codee" formControlName="dept_code"  class="form-select w-25 d-inline">
+        <option  disabled>{{ 'Select Department Code' | translate }} </option>
+        <option
+              *ngFor="let code of deptCodes" [ngValue]="code.dept_code"
+              >
+                {{code.dept_code}}
+        </option>
+      </select>
+      </div>
+      <div>
+        <label for="program_name" class="me-4 my-2 fw-bold mainfntclr form-label"> {{ 'Program Name' | translate }}</label>
+      <select  formControlName="program_name"  class="form-select w-25 d-inline ms-2">
+        <option  disabled>{{ 'Select Program' | translate }}</option>
+        <option
+              *ngFor="let program of programCodes" [ngValue]="program.program_name"
+              [value]="program==selected"
+              >
+                {{program.program_name}}
+        </option>
+      </select>
+      </div>
+
+      <label for="prerequisites" class="fw-bold mainfntclr"> {{ 'Prerequisites' | translate }}    <span class="text-danger">*</span></label>
+      <input type="text" id="prerequisites" formControlName="prerequisites" class="form-control my-3">
+      <p class="text-danger">{{ 'You should split each course with ,' | translate }}</p>
+      <div *ngIf="registerForm.get('prerequisites') && registerForm.get('prerequisites')?.touched">
+          <p *ngIf="registerForm.get('prerequisites')?.getError('required')" class="text-danger"> {{ 'Prerequisites is Required' | translate }}</p>
+          <p *ngIf="registerForm.get('prerequisites')?.getError('pattern')" class="text-danger"> {{ 'Prerequisites can not contain numbers' | translate }}</p>
+        </div>
+        <label for="course_desc" class="fw-bold mainfntclr">{{ 'Course Description' | translate }}    <span class="text-danger">*</span></label>
+        <input type="text" id="course_desc" formControlName="course_desc" class="form-control my-3">
+        <div *ngIf="registerForm.get('course_desc') && registerForm.get('course_desc')?.touched">
+            <p *ngIf="registerForm.get('course_desc')?.getError('required')" class="text-danger"> {{ 'Course Description is Required' | translate }}</p>
+            <p *ngIf="registerForm.get('course_desc')?.getError('pattern')" class="text-danger"> {{ 'Course Description should be only words and numbers' | translate }}</p>
+          </div>
+          <label for="course_code" class="fw-bold mainfntclr"> {{ 'Course Code' | translate }}    <span class="text-danger">*</span></label>
+        <input type="text" id="course_code" formControlName="course_code" class="form-control my-3">
+        <div *ngIf="registerForm.get('course_code') && registerForm.get('course_code')?.touched">
+            <p *ngIf="registerForm.get('course_code')?.getError('required')" class="text-danger"> {{ 'Course Code is Required' | translate }}</p>
+            <p *ngIf="registerForm.get('course_code')?.getError('pattern')" class="text-danger"> {{ 'Course Code should be only words and numbers' | translate }}</p>
+            <p *ngIf="registerForm.get('course_code')?.getError('minlength')" class="text-danger"> {{ 'Course Code should be at least 3' | translate }}</p>
+
+          </div>
+          <label class="fw-bold mainfntclr" for="credit_hours"> {{ 'Credit Hours' | translate }}    <span class="text-danger">*</span></label>
+        <input type="text" id="credit_hours" formControlName="credit_hours" class="form-control my-3">
+        <div *ngIf="registerForm.get('credit_hours') && registerForm.get('credit_hours')?.touched">
+            <p *ngIf="registerForm.get('credit_hours')?.getError('required')" class="text-danger"> {{ 'Credit Hours is Required' | translate }}</p>
+            <p *ngIf="registerForm.get('credit_hours')?.getError('pattern')" class="text-danger"> {{ 'Credit Hours should have values from 0-6' | translate }}</p>
+          </div>
+          <label  class="fw-bold mainfntclr" for="course_specs"> {{ 'Coursespecs File' | translate }}    <span class="text-danger">*</span></label>
+          <input
+            (change)="oncoursespecsFileSelected($event)"
+            name="course_specs"
+             type="file"
+              id="course_specs"
+              formControlName="course_specs"
+               class="form-control my-3">
+          <div *ngIf="registerForm.get('course_specs')&& registerForm.get('course_specs')?.touched">
+              <p *ngIf="registerForm.get('course_specs')?.getError('required')" class="text-danger"> {{ 'Coursespecs File is Required' | translate }}</p>
+              <p *ngIf="registerForm.get('course_specs')?.getError('pattern')" class="text-danger"> {{ 'Coursespecs File should have only pdf, doc, docx extensions' | translate }}</p>
+
+          </div>
+            <button  [disabled]="registerForm.invalid" class="btn btn-primary float-end">  {{ 'Submit' | translate }}</button>
+            <div class="clear-both"></div>
+
+</form>

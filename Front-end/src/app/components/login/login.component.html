@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-center align-content-center mt-5  ">
+  <div class="back  w-50 p-5 rounded-5">
+    <div class="my-3 fs-2 fw-semibold text-center">{{ 'Sign In' | translate }}</div>
+    <form  [formGroup]="loginForm" (ngSubmit)="submitForm(loginForm)"  class="row g-3">
+
+      <div class="col-md-12">
+        <label for="main_email"> {{ 'Email' | translate }}</label>
+    <input type="email" id="main_email" formControlName="main_email" class="form-control my-3">
+    <div *ngIf="loginForm.get('main_email')&& loginForm.get('main_email')?.touched">
+        <p *ngIf="loginForm.get('main_email')?.getError('required')" class="text-danger">{{ 'Email is Required' | translate }}</p>
+        <p *ngIf="loginForm.get('main_email')?.getError('pattern')" class="text-danger">{{ 'Email should match the format email@exten.com' | translate }}</p>
+    </div>
+      </div>
+      <div class="col-md-12">
+        <label for="password">{{ 'Password' | translate }}</label>
+    <input type="password" id="password" formControlName="password" class="form-control my-3">
+    <div *ngIf="loginForm.get('password')&& loginForm.get('password')?.touched">
+        <p *ngIf="loginForm.get('password')?.getError('required')" class="text-danger">{{ 'Password is Required' | translate }}</p>
+        <p *ngIf="loginForm.get('password')?.getError('pattern')" class="text-danger">{{ 'Password should be Minimum eight characters' | translate }}</p>
+        <p *ngIf="loginMessageError" class="alert alert-danger">{{loginMessageError}}</p>
+      </div>
+      </div>
+      <div class=" col-12 text-center">
+        <button  [disabled]="loginForm.invalid" type="submit" class="px-4 py-2 rounded-pill btn btn-primary button main">{{ 'Sign In' | translate }}</button>
+      </div>
+    </form>
+  </div>
+</div>

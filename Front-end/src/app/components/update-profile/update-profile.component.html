@@ -1,0 +1,267 @@
+<div class="row d-flex justify-content-md-between">
+  <div
+    class="mainfntclr leftside col-md-5 justify-content-center flex-column align-items-center d-flex"
+  >
+  <div class="">
+    <div class=" d-inline fw-bold">{{ 'Status' | translate }} : </div>
+        <div class="d-inline" *ngIf="this.user?.is_active ">{{ 'Active' | translate }}</div>
+        <div class="d-inline" *ngIf="!this.user?.is_active ">{{ 'Inactive' | translate }}</div>
+  </div>
+    <div class="picture pt-5 pb-3">
+      <div>
+        <img *ngIf="hasImage" class="img-fluid  pp " [src]="imageUrl" alt="">
+        <img *ngIf="!hasImage" class="img-fluid rounded-circle pp" src="../../../assets/images/blank-profile-picture-973460.png" alt="" />
+      </div>
+    </div>
+
+  </div>
+  <div class="fs-6 mainfntclr rightside col-md-6 mt-5 py-5 me-5 pe-3">
+    <span class="fw-bold mainfntclr">{{ 'Full Name' | translate }}</span>
+    <div class="d-flex justify-content-between align-items-center classs">
+      <span class="fs-3 mainfntclr">{{ this.user?.full_name }}</span>
+
+    </div>
+    <div class="m-4">
+      <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+        <label class="fw-bold mainfntclr" for="full_name">{{ 'Full Name' | translate }}</label>
+        <input
+          [attr.disabled]="disabled ? '' : null"
+          [value]="user?.full_name"
+          type="text"
+          id="full_name"
+          formControlName="full_name"
+          class="form-control my-3"
+        />
+
+        <label class="fw-bold mainfntclr" for="main_email">{{ 'Main Email' | translate }}</label>
+        <input
+          type="email"
+          id="main_email"
+          formControlName="main_email"
+          [attr.disabled]="disabled ? '' : null"
+          [value]="user?.main_email"
+          class="form-control my-3"
+        />
+        <label class="fw-bold mainfntclr" for="role">{{ 'role' | translate }}</label>
+        <input
+          type="text"
+          id="role"
+          formControlName="role"
+          [attr.disabled]="disabled ? '' : null"
+          [value]="user?.role"
+          class="form-control my-3"
+        />
+        <label class="fw-bold mainfntclr" for="user_name"> {{ 'User Name' | translate }}</label>
+        <input
+          [value]="user?.user_name"
+          type="text"
+          id="user_name"
+          formControlName="user_name"
+          class="form-control my-3"
+        />
+        <label class="fw-bold mainfntclr" for="additional_email">{{ 'Additional Email' | translate }}</label>
+        <input
+          type="email"
+          id="additional_email"
+          formControlName="additional_email"
+          [value]="user?.main_email"
+          class="form-control my-3"
+        />
+
+        <label class="fw-bold mainfntclr" for="title">{{ 'Title' | translate }}</label>
+        <select class="text-dark form-select w-25 my-3">
+          <option disabled selected>Select Your Title</option>
+          <option
+            *ngFor="let title of titles"
+            [ngValue]="title"
+            [selected]="title==this.user?.title"
+          >
+            {{ title }}
+          </option>
+        </select>
+        <label class="fw-bold mainfntclr" for="phone_number"> {{ 'Phone Number' | translate }}
+          <span class="text-danger">*</span>
+        </label>
+        <input
+          #phone
+          type="text"
+          id="phone_number"
+          formControlName="phone_number"
+          class="form-control my-3"
+          [value]="this.user?.phone_number"
+        />
+        <div
+          *ngIf="
+            registerForm.get('phone_number') &&
+            registerForm.get('phone_number')?.touched
+          "
+        >
+          <p
+            *ngIf="
+              registerForm.get('phone_number')?.getError('required') &&
+              registerForm.get('phone_number') == null
+            "
+            class="text-danger"
+          >
+            Phone Number is Required
+          </p>
+        </div>
+        <label class="fw-bold mainfntclr" for="relative_name">{{ 'Relative Name' | translate }}
+          <span class="text-danger">*</span>
+        </label>
+        <input
+          #relative
+          type="text"
+          id="relative_name"
+          formControlName="relative_name"
+          class="form-control my-3"
+          [value]="user?.relative_name"
+        />
+        <div
+          *ngIf="
+            registerForm.get('relative_name') &&
+            registerForm.get('relative_name')?.touched
+          "
+        >
+          <p
+            *ngIf="
+              registerForm.get('relative_name')?.getError('required') &&
+              registerForm.get('relative_name') == null
+            "
+            class="text-danger"
+          >
+            Relative Name is Required
+          </p>
+        </div>
+        <label class="fw-bold mainfntclr" for="relative_number">{{ 'Relative Number' | translate }}
+          <span class="text-danger">*</span>
+        </label>
+        <input
+          #relative
+          type="text"
+          id="relative_number"
+          formControlName="relative_number"
+          class="form-control my-3"
+          [value]="user?.relative_number"
+        />
+        <div
+          *ngIf="
+            registerForm.get('relative_number') &&
+            registerForm.get('relative_number')?.touched
+          "
+        >
+          <p
+            *ngIf="
+              registerForm.get('relative_number')?.getError('required') &&
+              registerForm.get('relative_number') == null
+            "
+            class="text-danger"
+          >
+            Relative Number is Required
+          </p>
+        </div>
+
+        <label class="fw-bold mainfntclr" for="office_location"> {{ 'Office Location' | translate }}</label>
+        <div id="office_location">
+          <select #building class="text-dark form-select w-25 d-inline">
+            <option
+              *ngFor="let bulding of buildings"
+              [ngValue]="bulding"
+              [selected]="bulding==this?.location?.[0]"
+            >
+              {{ bulding }}
+            </option>
+          </select>
+          <select #floor class="text-dark form-select ms-2 w-25 d-inline">
+            <option
+              *ngFor="let floor of floors"
+              [ngValue]="floor"
+              [selected]="floor==this?.location?.[1]"
+            >
+              {{ floor }}
+            </option>
+          </select>
+          <input
+            #room
+            type="text"
+            id="room"
+            [value]="this?.location?.[2]"
+            class="d-inline my-3 form-control w-25 px-4 ms-2"
+          />
+        </div>
+        <label class="fw-bold mainfntclr" for="office_hours">{{ 'Office hours' | translate }}</label>
+
+        <div id="office_hours" class="mt-3 mb-3" *ngFor="let item of officehours,let ind=index">
+          <select class="text-dark form-select w-25 d-inline">
+            <option
+              (click)="show($event)"
+              *ngFor="let day of daysOfWeek"
+              [ngValue]="day"
+              [selected]="item?.day_time==day"
+            >
+              {{ day }}
+            </option>
+          </select>
+          <input type="text"  [value]="item?.start" class="form-control w-25 d-inline ms-2">
+          <input type="text"  [value]="item?.end" class="form-control w-25 d-inline ms-2" >
+
+          <span class="btn ms-2 mb-1"(click)="remove(ind)"><i class="fa-solid fa-circle-xmark text-danger fs-4"></i></span>
+        </div>
+        <div>
+          <div class="fw-bold mainfntclr mt-3" >
+            {{"Add office hours"|translate}}
+          </div>
+          <div>
+            <select #day_time class="text-dark form-select w-25 d-inline">
+              <option
+                (click)="show($event)"
+                *ngFor="let day of daysOfWeek"
+                [ngValue]="day"
+              >
+                {{ day }}
+              </option>
+            </select>
+            <input type="time"   #start class="form-control w-25 d-inline ms-2">
+            <input type="time"  #end class="form-control w-25 d-inline ms-2" >
+          <!--   <input type="text" placeholder="10:00 AM"  #start class="form-control w-25 d-inline ms-2">
+            <input type="text" placeholder="11:30 AM" #end class="form-control w-25 d-inline ms-2" >
+           -->
+            <span class=" btn " (click)="Add()">
+              <i class="fa-solid fa-circle-check text-success ms-2 fs-4"></i>
+            </span>
+          </div>
+
+        </div>
+
+        <div *ngIf="this?.profile_links?.length!=0">
+          <div  id="profile_links" class="mt-3 mb-3" *ngFor="let link of this?.profile_links ,let ind=index">
+            <input type="text"  [value]="link" class="form-control w-75 d-inline ms-2">
+            <span class="btn ms-2 mb-1"(click)="removeLink(ind)"><i class="fa-solid fa-circle-xmark text-danger fs-4"></i></span>
+
+          </div>
+        </div>
+        <div>
+          <label class="fw-bold mainfntclr mt-3 mb-1">
+            {{ 'Profile links' | translate }}
+          </label>
+          <div>
+            <input type="text"
+            formControlName="profile_links"
+             #link class="form-control w-50 d-inline ">
+            <span class=" btn " (click)="AddLink()">
+              <i class="fa-solid fa-circle-check text-success ms-2 fs-4"></i>
+            </span>
+          </div>
+        </div>
+        <button
+        type="submit"
+          [disabled]="registerForm.invalid"
+          class="btn btn-primary mt-3 float-end"
+        >
+          {{ 'Update' | translate }}
+        </button>
+        <div class="clear-both"></div>
+      </form>
+    </div>
+  </div>
+</div>

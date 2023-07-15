@@ -1,0 +1,231 @@
+<div class="mt-5">
+  <h2 class="text-center">{{ 'All Legation Requests' | translate }}</h2>
+  <div
+    *ngFor="let legation of all; let in = index"
+  >
+    <div
+     class="container border border-2 borderclr bg-light rounded-3 my-4"
+     *ngIf="legation.Legations?.status === 'Pending'&&!noPendingPage"
+    >
+      <div
+      class="modal fade"
+      [attr.id]="'exampleModal' + in"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered" >
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1
+              class="modal-title fs-5"
+              *ngIf="modaltype"
+              id="exampleModalLabel"
+            >
+              {{ 'Accept request' | translate }}
+            </h1>
+            <h1
+              class="modal-title fs-5"
+              *ngIf="!modaltype"
+              id="exampleModalLabel"
+            >
+              {{ 'Reject request' | translate }}
+            </h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div *ngIf="modaltype" class="modal-body">
+            {{ 'Are you sure you want to accept?' | translate }}
+          </div>
+          <div *ngIf="!modaltype" class="modal-body">
+            {{ 'Are you sure you want to reject?' | translate }}
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              {{ 'Cancel' | translate }}
+            </button>
+            <button
+              type="button "
+              *ngIf="modaltype"
+              class="btn btn-success"
+              data-bs-dismiss="modal"
+              (click)="acceptRequest(legation.Legations?.id)"
+            >
+              {{ 'Accept' | translate }}
+            </button>
+            <button
+             type="button"
+              *ngIf="!modaltype"
+               class="btn btn-danger"
+               data-bs-dismiss="modal"
+               (click)="rejectRequest(legation.Legations?.id)"
+               >
+              {{ 'Reject' | translate }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="all d-flex flex-column pt-5" role="button">
+      <div class="w-100">
+        <div class="row text-center">
+          <div class="col-md-4 my-2">
+            <span class="fw-bold">{{ 'Full Name:' | translate }}</span> {{ legation.full_name }}
+          </div>
+          <div class="col-md-4 my-2">
+            <span class="fw-bold">{{ 'Type:' | translate }}</span> {{ legation.Legations?.type }}
+          </div>
+          <div class="col-md-4 mb-4 my-2">
+            <button
+              class="btn button btn-primary main border"
+              (click)="show(legation, in)"
+            >
+              {{ 'show' | translate }} {{ legation.value ? "less" : "more" }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ng-container *ngIf="legation.value"
+        ><div class="text-center">
+          <div class="row justify-content-around">
+            <div class="col-md-4 my-3">{{ 'Phone Number' | translate }}</div>
+            <div class="col-md-4">:</div>
+            <div class="col-md-4 my-3">{{ legationtPart?.phone_number }}</div>
+          </div>
+          <div class="row justify-content-around">
+            <div class="col-md-4 my-3">{{ 'Start date' | translate }}</div>
+            <div class="col-md-4">:</div>
+            <div class="col-md-4 my-3">{{ legationtPart?.start_date }}</div>
+          </div>
+          <div class="row justify-content-around">
+            <div class="col-md-4 my-3">{{ 'End date' | translate }}</div>
+            <div class="col-md-4">:</div>
+            <div class="col-md-4 my-3">{{ legationtPart?.end_date }}</div>
+          </div>
+          <div class="row justify-content-around">
+            <div class="col-md-4 my-3">{{ 'Description' | translate }}</div>
+            <div class="col-md-4">:</div>
+            <div class="col-md-4 my-3">{{ legationtPart?.description }}</div>
+          </div>
+        </div>
+        <div class="row justify-content-around text-center my-3">
+          <div class="col-6">
+            <button
+              class="btn btn-success px-4 py-2"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#exampleModal' + in"
+              (click)="changemodal(true)"
+            >
+              {{ 'Accept' | translate }}
+            </button>
+          </div>
+          <div class="col-6">
+            <button
+              class="btn btn-danger px-4 py-2"
+              data-bs-toggle="modal"
+              [attr.data-bs-target]="'#exampleModal' + in"
+              (click)="changemodal(false)"
+            >
+              {{ 'Reject' | translate }}
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+    </div>
+    <div
+    class="container border border-2 borderclr bg-light rounded-3 my-4"
+    *ngIf="legation.Legations?.status != 'Pending'&& noPendingPage"
+    >
+      <div class="all d-flex flex-column pt-5" role="button">
+        <div class="w-100">
+          <div class="row text-center">
+            <div class="col-md-3 my-2">
+              <span class="fw-bold">{{ 'Full Name:' | translate }}</span> {{ legation.full_name }}
+            </div>
+            <div class="col-md-3 my-2">
+              <span class="fw-bold">{{ 'Type:' | translate }}</span> {{ legation.Legations?.type }}
+            </div>
+            <div class="col-md-3 my-2">
+              <span class="fw-bold">{{ 'Status:' | translate }}</span> {{ legation.Legations?.status }}
+            </div>
+            <div class="col-md-3 mb-4 my-2">
+              <button
+                class="btn button btn-primary main border"
+                (click)="show(legation, in)"
+              >
+                {{ 'show' | translate }} {{ legation.value ? "less" : "more" }}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="legation.value"
+          ><div class="text-center">
+            <div class="row justify-content-around">
+              <div class="col-md-4 my-3">{{ 'Phone Number' | translate }}</div>
+              <div class="col-md-4">:</div>
+              <div class="col-md-4 my-3">{{ legationtPart?.phone_number }}</div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="col-md-4 my-3">{{ 'Start date' | translate }}</div>
+              <div class="col-md-4">:</div>
+              <div class="col-md-4 my-3">{{ legationtPart?.start_date }}</div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="col-md-4 my-3">{{ 'End date' | translate }}</div>
+              <div class="col-md-4">:</div>
+              <div class="col-md-4 my-3">{{ legationtPart?.end_date }}</div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="col-md-4 my-3">{{ 'Description' | translate }}</div>
+              <div class="col-md-4">:</div>
+              <div class="col-md-4 my-3">{{ legationtPart?.description }}</div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="col-md-4 my-3"> {{ 'View As Pdf ' | translate }}</div>
+              <div class="col-md-4">:</div>
+              <div class="col-md-4">
+                <button (click)="viewPDF(legation.Legations?.id)" class="button btn main text-white">{{'View'|translate}}</button>
+
+              </div>
+            </div>
+            <div class="row justify-content-around">
+              <div class="col-md-4 my-3"> {{ 'Download As Pdf ' | translate }}</div>
+              <div class="col-md-4">:</div>
+              <div class="col-md-4">
+                <button (click)="downloadPdf(legation.Legations?.id,legation.full_name,legation.Legations?.created_at)" class="button btn main text-white">{{'Download'|translate}}</button>
+
+              </div>
+            </div>
+          </div>
+
+        </ng-container>
+      </div>
+    </div>
+
+  </div>
+
+  <div
+  class="alert
+   alert-danger
+   text-center
+   "
+
+  *ngIf="checkAllItemsNotPending()&& !noPendingPage"
+  >
+    <h2>{{ 'There is No Pending Requests! Go Back to Your Panel?' | translate }}</h2>
+    <button class="btn button btn-primary main border px-3 py-2 mt-2 " (click)="panel()">My Panel</button>
+  </div>
+
+
+</div>

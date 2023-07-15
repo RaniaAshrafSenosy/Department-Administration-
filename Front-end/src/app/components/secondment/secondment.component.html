@@ -1,0 +1,109 @@
+<h2 *ngIf="legationForm" class="mt-5 my-3 mainfntclr">{{ 'Secondment Form' | translate }}</h2>
+<h2 *ngIf="secondmentForm" class="mt-5 my-3 mainfntclr">{{ 'Legation Form' | translate }}</h2>
+<h2 *ngIf="vacationForm" class="mt-5 my-3 mainfntclr">{{ 'Vacation Form' | translate }}</h2>
+<form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+  <label class="fw-bold mainfntclr"  for="start_date">{{ 'Start Date' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input
+  name="start_date"
+  type="date"
+  id="start_date"
+   formControlName="start_date"
+   class="form-control my-3">
+  <div *ngIf="registerForm.get('start_date')&& registerForm.get('start_date')?.touched">
+      <p *ngIf="registerForm.get('start_date')?.getError('required')" class="text-danger">{{ 'Start Date is Required' | translate }}</p>
+
+
+  </div>
+  <label class="fw-bold mainfntclr"  for="end_date">{{ 'End Date' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input
+  name="end_date"
+  type="date"
+  id="end_date"
+   formControlName="end_date"
+   class="form-control my-3">
+  <div *ngIf="registerForm.get('end_date')&& registerForm.get('end_date')?.touched">
+      <p *ngIf="registerForm.get('end_date')?.getError('required')" class="text-danger">{{ 'End Date is Required' | translate }}</p>
+  </div>
+  <label  class="fw-bold mainfntclr" for="desc">{{ 'Description' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input
+   name="desc"
+   type="text"
+   id="desc"
+   formControlName="desc"
+   class="form-control my-3">
+  <div *ngIf="registerForm.get('desc')&& registerForm.get('desc')?.touched">
+      <p *ngIf="registerForm.get('desc')?.getError('required')" class="text-danger">{{ 'Description  is Required' | translate }}</p>
+  </div>
+  <div *ngIf="secondmentForm||vacationForm">
+    <label  class="fw-bold" for="type">Type</label>
+    <input
+     name="type"
+     type="text"
+     id="type"
+     formControlName="type"
+     class="form-control my-3">
+    <div *ngIf="registerForm.get('type')&& registerForm.get('type')?.touched">
+        <p *ngIf="registerForm.get('type')?.getError('required')" class="text-danger">Type  is Required</p>
+    </div>
+  </div>
+  <div *ngIf="legationForm">
+    <label  class="fw-bold mainfntclr" for="type">{{ 'Type' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+       <div class="form-check" *ngFor="let type of types">
+        <label class="form-check-label ms-3">
+          <input
+           id="type"
+           name="type"
+           (change)="onChangeType(type)"
+           (change)="changeValidator()"
+          class="form-check-input"
+          type="radio"
+          formControlName="type"
+          [value]="type">{{ type }}
+        </label>
+      </div>
+      <div *ngIf="registerForm.get('type')&& registerForm.get('type')?.touched">
+        <p *ngIf="registerForm.get('type')?.getError('required')" class="text-danger">{{ 'Type  is Required' | translate }}</p>
+    </div>
+  </div>
+
+ <div *ngIf="isCountry">
+  <label  class="fw-bold mainfntclr" for="country">{{ 'Country' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input
+   name="country"
+   type="text"
+   id="country"
+   formControlName="country"
+   class="form-control my-3">
+  <div *ngIf="registerForm.get('country')&& registerForm.get('country')?.touched">
+      <p *ngIf="registerForm.get('country')?.getError('required')" class="text-danger">{{ 'Country  is Required' | translate }}</p>
+      <p *ngIf="registerForm.get('country')?.getError('pattern')" class="text-danger">{{ 'Country  Should be only Characters' | translate }}</p>
+
+    </div>
+ </div>
+  <label  class="fw-bold mainfntclr" for="attachment">{{ 'Attachment' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input
+  name="attachment"
+  type="file"
+   id="attachment"
+   formControlName="attachment"
+   (change)=" onattachementFileSelected($event)"
+   class="form-control my-3">
+  <div *ngIf="registerForm.get('attachment')&& registerForm.get('attachment')?.touched">
+      <p *ngIf="registerForm.get('attachment')?.getError('required')" class="text-danger">{{ 'Attachment is Required' | translate }}</p>
+      <p *ngIf="registerForm.get('attachment')?.getError('pattern')" class="text-danger">{{ 'Attachment should have only pdf , doc or docx extensions' | translate }}</p>
+  </div>
+  <button  [disabled]="registerForm.invalid" class="btn btn-primary float-end"> {{ 'Submit' | translate }}</button>
+
+</form>

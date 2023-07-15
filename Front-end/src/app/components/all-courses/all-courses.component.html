@@ -1,0 +1,11 @@
+
+<div class="  px-3 d-flex flex-column pt-5 mt-3">
+  <h2 class="fw-bold mainfntclr text-center">{{ 'All Courses' | translate }}</h2>
+  <div class=" border border-2 borderclr py-4 mb-5 w-100 my-2 bg-light rounded-3" role="button" *ngFor="let item of array"(click)="opencourse(item.courses.id)">
+    <div class="row text-center">
+      <div class="col-md-4 "><span class="fw-bold"> {{ 'Course Code' | translate }}:</span> {{item.courses.dept_code}}</div>
+      <div class="col-md-4 "><span class="fw-bold"> {{ 'Course Name' | translate }} :</span> {{item.courses.course_name}}</div>
+      <div class="col-md-4 "><span class="fw-bold"> {{ 'Course Credit Hours' | translate }}:</span> {{item.courses.credit_hours}}</div>
+    </div>
+  </div>
+</div>

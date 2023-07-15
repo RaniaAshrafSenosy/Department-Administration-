@@ -1,0 +1,88 @@
+
+ <div class="container">
+  <a class="text-decoration-none float-end" *ngIf="admin" ><i (click)="update(course?.id)" class="fa-solid fa-pen-to-square mainfntclr"></i></a>
+  <a class="text-decoration-none me-5 float-end" *ngIf="admin" >
+    <i
+    data-bs-toggle="modal"
+    [attr.data-bs-target]="'#staticBackdrop' +course?.id"
+    data-bs-target="#staticBackdrop"
+     class="fa-solid fa-trash mainfntclr"></i></a>
+     <div class="modal fade"
+         id="staticBackdrop"
+          data-bs-backdrop="static"
+           data-bs-keyboard="false"
+           [attr.id]="'staticBackdrop' + course?.id"
+           tabindex="-1"
+           aria-labelledby="staticBackdropLabel"
+            aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ 'Archive Course' | translate }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                {{ 'Are you Sure You Want to Archive' | translate }} {{course?.course_name}}?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close' | translate }}</button>
+                <button  type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="Archive(course?.id)" >{{ 'Archive' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+  <h1 class="mt-3">{{course?.course_name}}</h1>
+ <section>
+  <div>
+    <div class="mt-4 fs-3 fw-semibold ">
+      {{ 'Course Code' | translate }}
+    </div>
+    <div><span class="ms-4">{{course?.course_code}}</span></div>
+  </div>
+ </section>
+<section>
+  <div>
+    <div class="mt-5 fs-3 fw-semibold ">
+      {{ 'Course Description' | translate }}
+    </div>
+    <div><p class="mx-4">{{course?.course_desc}}</p></div>
+  </div>
+</section>
+
+  <section>
+    <div class="mt-4 fs-3 fw-semibold">
+      {{ 'Prerequistes' | translate }}
+    </div>
+    <ul class="" *ngFor="let item of prerequisites">
+      <li >{{item}}</li>
+    </ul>
+  </section>
+  <div>
+    <div class="mt-4 fs-3 fw-semibold ">
+      {{ 'Department Code' | translate }}
+    </div>
+   <div> <span class="ms-4">{{course?.dept_code}}</span></div>
+  </div>
+  <section>
+    <div>
+      <div class="mt-4 fs-3 fw-semibold ">
+        {{ 'Program Name' | translate }}
+      </div>
+      <div><span class="ms-4">{{course?.program_name}}</span></div>
+    </div>
+   </section>
+  <section>
+    <div class="mt-4 fs-3 fw-semibold ">
+      {{ 'Credit Hours' | translate }}
+    </div>
+   <div> <span class="ms-4 " >{{course?.credit_hours}}</span></div>
+  </section>
+  <section>
+    <div class="mt-4 fs-3 fw-semibold ">
+      {{ 'Course Specs' | translate }}
+    </div>
+    <div  class="border-2 mb-3  form-control w-25" *ngIf="this?.courseSprecsName?.length>0">
+      <a  class="text-decoration-none mainfntclr" [href]="this?.courseSpecs" target="_blank">{{this?.courseSprecsName}}</a>
+  </div>
+  </section>
+</div>

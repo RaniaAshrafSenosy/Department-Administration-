@@ -1,0 +1,96 @@
+
+<div class="all px-3 d-flex flex-column pt-5">
+  <h2 class="fw-bold mainfntclr"> {{ 'All Departments' | translate }}</h2>
+  <div class=" border border-2 borderclr py-4  w-100 my-2 bg-light rounded-3" role="button" *ngFor="let dept of Departments;let in = index "(click)="open(dept.id,dept.dept_name,dept.dept_code)">
+    <div class="row text-center">
+      <div class="col-md-4 "><span class="fw-bold"> {{ 'Department Code:' | translate }}</span> {{dept.dept_code}}</div>
+      <div class="col-md-4 "><span class="fw-bold"> {{ 'Department Name:' | translate }}</span> {{dept.dept_name}}</div>
+      <div *ngIf="!admin" class="col-md-4 "><span class="fw-bold"> {{ 'Department Head:' | translate }}</span> {{dept.head}}</div>
+      <div *ngIf="admin" class="col-md-1 m-1">
+        <button class="btn btn-success" (click)="updateDept(dept.id)"> {{ 'Update' | translate }}</button>
+      </div>
+      <div *ngIf="admin" class="col-md-1 m-1">
+        <button type="button"
+         class="btn btn-danger"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#staticBackdrop' + in"
+          data-bs-target="#staticBackdrop">
+           {{ 'Archive' | translate }}
+        </button>
+      </div>
+
+    </div>
+    <div class="modal fade"
+     id="staticBackdrop"
+      data-bs-backdrop="static"
+       data-bs-keyboard="false"
+       [attr.id]="'staticBackdrop' + in"
+       tabindex="-1"
+       aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdropLabel"> {{ 'Archive Department' | translate }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+             {{ 'Are you Sure You Want to Archive' | translate }} {{dept.dept_name}}?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> {{ 'Close' | translate }}</button>
+            <button  type="button" class="btn btn-danger"  data-bs-dismiss="modal" (click)="archiveDept(dept.id)"> {{ 'Archive' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h2 class="fw-bold mainfntclr"> {{ 'All Programs' | translate }}</h2>
+  <div class=" border border-2 borderclr py-4  w-100 my-2 bg-light rounded-3 mb-2" role="button" (click)="openProgram(prog.id)"
+   *ngFor="let prog of Programs;let progin = index ">
+    <div class="row text-center">
+      <div class="col-md-4 "><span class="fw-bold"> {{ 'Program Name:' | translate }}</span> {{prog.program_name}}</div>
+      <div class="col-md-4 "><span class="fw-bold">{{ 'Department Code:' | translate }} </span> {{prog.dept_code}}</div>
+      <div *ngIf="!admin" class="col-md-4 "><span class="fw-bold">{{ 'Program Head:' | translate }}  </span> {{prog.program_head}}</div>
+      <div *ngIf="admin" class="col-md-1 m-1">
+        <button class="btn btn-success" (click)="updateProg(prog.id)">{{ 'Update' | translate }}</button>
+      </div>
+      <div *ngIf="admin" class="col-md-1 m-1">
+        <button type="button"
+         class="btn btn-danger"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#staticBackdrop1' + progin"
+          data-bs-target="#staticBackdrop1">
+          {{ 'Archive' | translate }}
+        </button>
+      </div>
+
+    </div>
+    <div class="modal fade"
+     id="staticBackdrop1"
+      data-bs-backdrop="static"
+       data-bs-keyboard="false"
+       [attr.id]="'staticBackdrop1' + progin"
+       tabindex="-1"
+       aria-labelledby="staticBackdrop1Label"
+        aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="staticBackdrop1Label">{{ 'Archive Program' | translate }}</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+       {{ 'Are you Sure You Want to Archive' | translate }}{{prog.program_name}}?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close' | translate }}</button>
+            <button  type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="archiveProgram(prog.id)">{{ 'Archive' | translate }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+

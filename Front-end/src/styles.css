@@ -1,0 +1,19 @@
+/* You can add global styles to this file, and also import other style files */
+:root {
+  --maincolor: #193857;
+}
+.main
+{
+  background-color: var(--maincolor) !important;
+}
+.mainfntclr{
+  color:var(--maincolor) !important;
+}
+.bordr{
+  border-color: var(--maincolor) !important;
+}
+.classs{
+  border-bottom: 3px solid var(--maincolor) !important;
+}
+
+

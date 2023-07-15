@@ -1,0 +1,102 @@
+<h2 class="mt-5 my-3 mainfntclr fw-bold"> {{ 'Registration Form' | translate }}</h2>
+<form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+    <label class="fw-bold mainfntclr" for="full_name">{{ 'Full Name' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <input type="text" id="full_name" formControlName="full_name" class="form-control my-3">
+    <div *ngIf="registerForm.get('full_name') && registerForm.get('full_name')?.touched">
+        <p *ngIf="registerForm.get('full_name')?.getError('required')" class="text-danger"> {{ 'Full Name is Required' | translate }}</p>
+        <p *ngIf="registerForm.get('full_name')?.getError('pattern')" class="text-danger"> {{ 'Full Name can not contain numbers' | translate }}</p>
+        <p *ngIf="registerForm.get('full_name')?.getError('minlength')" class="text-danger"> {{ 'Full Name should be at least 3 characters' | translate }}</p>
+        <p *ngIf="registerForm.get('full_name')?.getError('maxlength')" class="text-danger"> {{ 'Full Name should be maximum 30 characters' | translate }}</p>
+    </div>
+    <label class="fw-bold mainfntclr" for="main_email"> {{ 'Main Email' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <input type="email" id="main_email" formControlName="main_email" class="form-control my-3">
+    <div *ngIf="registerForm.get('main_email')&& registerForm.get('main_email')?.touched">
+        <p *ngIf="registerForm.get('main_email')?.getError('required')" class="text-danger"> {{ 'Email is Required' | translate }}</p>
+        <p *ngIf="registerForm.get('main_email')?.getError('pattern')" class="text-danger"> {{ 'Email should match the format username@domainname.extension' | translate }} </p>
+        <p *ngIf="emailErrorMessage" class="alert alert-danger">{{emailErrorMessage}}</p>
+    </div>
+    <div class="form-group">
+      <label class="fw-bold mainfntclr" for="password"> {{ 'Password' | translate }}
+        <span class="text-danger">*</span>
+      </label>
+      <input
+        formControlName="password"
+        type="text"
+        class="form-control my-3"
+      />
+      <p *ngIf="registerForm.get('password')&& registerForm.get('password')?.getError('required')&& registerForm.get('password')?.touched" class="text-danger"> {{ 'Password is Required' | translate }}</p>
+        <p *ngIf="registerForm.get('password')?.getError('pattern')" class="text-danger"> {{ 'Password should be Minimum eight characters' | translate }}</p>
+    </div>
+    <div  class="form-group">
+      <label class="fw-bold mainfntclr" for="cpassword"> {{ 'Confirm Password' | translate }}
+        <span class="text-danger">*</span>
+      </label>
+      <input
+        formControlName="cpassword"
+        type="text"
+        class="form-control my-3"
+      />
+      <p
+      *ngIf="registerForm.get('cpassword')&&registerForm.get('cpassword')?.getError('required')&& registerForm.get('password')?.touched"
+      class="text-danger"> {{ 'Confirm Password is Required' | translate }}</p>
+
+      <small
+        *ngIf="registerForm.errors&& registerForm.get('cpassword')?.touched"
+        class="text-danger"
+        >  {{ 'Confirm Password missmatch' | translate }}</small
+      >
+    </div>
+    <label class="fw-bold mainfntclr" for="role"> {{ 'Role' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <div class="form-check" *ngFor="let role of roles">
+      <label class="form-check-label ms-3">
+        <input
+        id="role"
+        class="form-check-input"
+        type="radio"
+        formControlName="role"
+        [value]="role">{{ role }}
+      </label>
+    </div>
+    <label for="title"> {{ 'Title' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <div class="form-check" *ngFor="let title of titles">
+      <label class="form-check-label ms-3">
+        <input
+        id="title"
+        class="form-check-input"
+        type="radio"
+        formControlName="title"
+        [value]="title">{{ title }}
+      </label>
+    </div>
+
+    <div>
+      <label class="fw-bold mainfntclr" for="dept_code" class="me-3 form-label"> {{ 'Department Code' | translate }}
+        <span class="text-danger">*</span>
+      </label>
+    <select  [(ngModel)]="codee" formControlName="dept_code"  class="form-select w-25 ">
+      <option  disabled> {{ 'Select Department Code' | translate }} </option>
+      <option
+            *ngFor="let code of deptCodes" [ngValue]="code.dept_code"
+
+            >
+              {{code.dept_code}}
+      </option>
+    </select>
+    </div>
+    <div *ngIf="registerForm.get('dept_code')&&registerForm.get('dept_code')?.touched">
+      <p *ngIf="registerForm.get('dept_code')?.getError('required')" class="text-danger"> {{ 'Department Code is Required' | translate }}</p>
+  </div>
+
+
+    <button [disabled]="registerForm.invalid" class="btn btn-primary float-end">  {{ 'Register' | translate }}</button>
+    <div class="clear-both"></div>
+
+</form>

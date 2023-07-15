@@ -1,0 +1,63 @@
+<h2 class="mt-5 my-3 fw-bold mainfntclr">Add Program</h2>
+<form [formGroup]="Form" (ngSubmit)="submitForm(Form)">
+  <label  class="fw-bold mainfntclr" for="program_name">Program Name</label>
+  <input type="text" id="program_name" formControlName="program_name" class="form-control my-3">
+  <div *ngIf="Form.get('program_name') && Form.get('program_name')?.touched">
+      <p *ngIf="Form.get('program_name')?.getError('required')" class="text-danger">Program Name is Required</p>
+      <p *ngIf="Form.get('program_name')?.getError('minlength')" class="text-danger">Program Name should be at least 3 words</p>
+      <p *ngIf="Form.get('program_name')?.getError('maxlength')" class="text-danger">Program Name can not be more than 30 words </p>
+      <p *ngIf="Form.get('program_name')?.getError('pattern')" class="text-danger">Program Name can't contain numbers</p>
+      <p *ngIf="emailErrorMessage" class="alert alert-danger">
+        {{ emailErrorMessage }}
+      </p>
+    </div>
+    <label  class="fw-bold mainfntclr" for="program_desc">Program Description</label>
+    <input type="text" id="program_desc" formControlName="program_desc" class="form-control my-3">
+    <div *ngIf="Form.get('program_desc') && Form.get('program_desc')?.touched">
+        <p *ngIf="Form.get('program_desc')?.getError('required')" class="text-danger">Program Description is Required</p>
+
+      </div>
+      <label  class="fw-bold mainfntclr" for="program_head">Program Head</label>
+      <input type="text" id="program_head" formControlName="program_head" class="form-control my-3">
+      <div *ngIf="Form.get('program_head') && Form.get('program_head')?.touched">
+          <p *ngIf="Form.get('program_head')?.getError('required')" class="text-danger">Program Head is Required</p>
+          <p *ngIf="Form.get('program_head')?.getError('pattern')" class="text-danger">Program Head can't contain numbers</p>
+        </div>
+        <label  class="fw-bold mainfntclr" for="bylaw">Bylaw File</label>
+        <input
+          (change)="onBylawFileSelected($event)"
+          name="bylaw"
+           type="file"
+            id="bylaw"
+            formControlName="bylaw"
+             class="form-control my-3">
+        <div *ngIf="Form.get('bylaw')&& Form.get('bylaw')?.touched">
+            <p *ngIf="Form.get('bylaw')?.getError('required')" class="text-danger">Bylaw File is Required</p>
+            <p *ngIf="Form.get('bylaw')?.getError('pattern')" class="text-danger">Bylaw File should have only pdf, doc, docx extensions</p>
+        </div>
+        <label  class="fw-bold mainfntclr" for="booklet">Booklet File</label>
+        <input
+          (change)="onBookletFileSelected($event)"
+          name="booklet"
+           type="file"
+            id="booklet"
+            formControlName="booklet"
+             class="form-control my-3">
+        <div *ngIf="Form.get('booklet')&& Form.get('booklet')?.touched">
+            <p *ngIf="Form.get('booklet')?.getError('required')" class="text-danger">Booklet File is Required</p>
+            <p *ngIf="Form.get('booklet')?.getError('pattern')" class="text-danger">Booklet File should have only pdf, doc, docx extensions</p>
+        </div>
+  <div>
+    <label  fw-bold mainfntclr for="dept_code" class="me-3 fw-bold mainfntclr form-label">Department Code</label>
+  <select  [(ngModel)]="codee" formControlName="dept_code"  class="form-select w-25 d-inline">
+    <option  disabled>Select Department Code </option>
+    <option
+          *ngFor="let code of deptCodes" [ngValue]="code.dept_code"
+          >
+            {{code.dept_code}}
+    </option>
+  </select>
+  </div>
+  <button  [disabled]="Form.invalid" class="btn btn-primary float-end"> Submit</button>
+  <div class="clear-both"></div>
+  </form>

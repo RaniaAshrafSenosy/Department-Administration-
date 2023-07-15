@@ -1,0 +1,49 @@
+<div class="m-4">
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+
+    <label class="fw-bold mainfntclr" for="title">{{"Announcment Title"|translate}}</label>
+    <input
+      [value]="announcmentInstance?.title"
+      type="text"
+      id="title"
+      formControlName="title"
+      class="form-control my-3"
+    />
+    <div *ngIf="registerForm.get('title')&& registerForm.get('title')?.touched">
+      <p *ngIf="registerForm.get('title')?.getError('required')" class="text-danger"> {{"Announcement Title is Required"|translate}}</p>
+      <p *ngIf="registerForm.get('title')?.getError('minlength')" class="text-danger"> {{"Announcement Title should be at least 2 words"|translate}}</p>
+    </div>
+    <label class="fw-bold mainfntclr" for="body"> {{"Announcment Body"|translate}}</label>
+    <input
+      [value]="announcmentInstance?.body"
+      type="text"
+      id="body"
+      formControlName="body"
+      class="form-control my-3"
+    />
+    <div *ngIf="registerForm.get('body')&& registerForm.get('body')?.touched">
+      <p *ngIf="registerForm.get('body')?.getError('minLength')" class="text-danger"> {{"Announcement Body should be at least 5 words"|translate}}</p>
+
+      <p *ngIf="registerForm.get('body')?.getError('required')" class="text-danger"> {{"Announcement Body is Required"|translate}}</p>
+      </div>
+    <label  class="fw-bold mainfntclr" for="file"> {{"Attachment File"|translate}}</label>
+    <input
+      (change)="onbylawFileSelected($event)"
+      name="bylaw"
+       type="file"
+        id="file"
+        formControlName="file"
+        class="form-control my-3">
+    <div *ngIf="registerForm.get('file')&& registerForm.get('file')?.touched">
+    <p *ngIf="registerForm.get('file')?.getError('required')" class="text-danger"> {{"Attachement File is Required"|translate}}</p>
+    <p *ngIf="registerForm.get('file')?.getError('pattern')" class="text-danger"> {{ 'Attachement File should have only pdf, doc, docx extensions' | translate }}</p>
+
+  </div>
+    <div  class="border-2  form-control w-25" *ngIf="!announcmentInstance?.file?.endsWith('media')">
+      <a class="text-decoration-none mainfntclr" [href]="announcmentInstance?.file" target="_blank">{{this?.deptBylaw}}</a>
+    </div>
+    <button  [disabled]="registerForm.invalid" class="btn btn-primary float-end"> {{"Submit"|translate}}</button>
+    <div class="clear-both"></div>
+    </form>
+
+    </div>

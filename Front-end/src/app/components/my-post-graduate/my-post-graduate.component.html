@@ -1,0 +1,11 @@
+<div class="  px-3 d-flex flex-column pt-5 mt-3">
+  <h2 class="fw-bold mainfntclr text-center">My PostGraduate Students</h2>
+  <div class=" border border-2 borderclr py-4 mb-5 w-100 my-2 bg-light rounded-3" role="button" *ngFor="let student of postgrad">
+    <div class="row text-center">
+      <div class="col-md-3 "><span class="fw-bold"> {{ 'Student Name' | translate }}:</span> {{student.student_name}}</div>
+      <div class="col-md-3 "><span class="fw-bold"> {{ 'Academic Year' | translate }} :</span> {{student.academic_year}}</div>
+      <div class="col-md-3 "><span class="fw-bold"> {{ 'Grade' | translate }}:</span> {{student.grade}}</div>
+      <div class="col-md-3 "><span class="fw-bold"> {{ 'Research Name' | translate }}:</span> {{student.research_topic_EN}}</div>
+    </div>
+  </div>
+</div>

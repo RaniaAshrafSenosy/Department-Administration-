@@ -1,0 +1,9 @@
+
+.classs{
+  border-bottom: 3px solid var(--maincolor);
+}
+.button{
+  background-color: var(--maincolor)!important;
+  border-color:  white;
+}
+

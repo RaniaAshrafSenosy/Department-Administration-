@@ -1,0 +1,40 @@
+<div class="container ">
+  <h1 class="mt-3 ">{{department?.[0]?.dept_name}}</h1>
+  <p class="mx-4">{{department?.[0]?.desc}}</p>
+  <h3 class="mt-4">{{ 'Head of department' | translate }}</h3>
+  <span role="button" (click)="openProfile(department?.[0]?.head_id)" class="mt-1 mx-4 fs-5">{{department?.[0]?.head}}</span>
+  <section class="d-flex justify-content-between">
+    <div>
+      <div class="mt-3 fs-3 fw-semibold">
+        {{ 'Professors' | translate }}
+      </div>
+      <ul class="" *ngFor="let professor of department?.[0]?.professor_names">
+        <li role="button" (click)="openProfile(professor.User_id)">{{professor.User_name}}</li>
+      </ul>
+    </div>
+    <div>
+      <div class="mt-3 fs-3 fw-semibold">
+        {{ 'Teaching Assistant' | translate }}
+      </div>
+      <ul class="" *ngFor="let professor of department?.[0]?.ta_names">
+        <li role="button" (click)="openProfile(professor.User_id)">{{professor.User_name}}</li>
+      </ul>
+    </div>
+    <div>
+      <div class="mt-3 fs-3 fw-semibold">
+        {{ 'Secretary' | translate }}
+      </div>
+      <ul class="" *ngFor="let professor of department?.[0]?.secretary_names">
+        <li role="button" (click)="openProfile(professor.User_id)">{{professor.User_name}}</li>
+      </ul>
+    </div>
+  </section>
+  <section>
+    <div class="mt-3 fs-3 fw-semibold">
+      {{ 'Courses' | translate }}
+    </div>
+    <ul class="" *ngFor="let course of department?.[0]?.course_names">
+      <li role="button" (click)="openCourse(course.Course_id)">{{course.Course_name}}</li>
+    </ul>
+  </section>
+</div>

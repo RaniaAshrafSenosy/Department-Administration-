@@ -1,0 +1,6 @@
+
+
+.borderclr{
+  border-color: var(--maincolor) !important;
+  color: var(--maincolor);
+}

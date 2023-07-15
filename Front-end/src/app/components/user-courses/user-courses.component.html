@@ -1,0 +1,11 @@
+<div >
+  <div  *ngFor="let academicYear of academicYears"  class="px-5">
+    <h4 class="fw-bold mainfntclr">{{academicYear}} {{ 'academicYear' | translate }}:</h4>
+    <div class="ms-5" *ngFor="let semester of getSemsters(academicYear)">
+      <h3 class="mainfntclr ">{{ semester }}</h3>
+      <div *ngFor="let first of getFirstSemsters(academicYear,semester)">
+        <h4 class="mainfntclr ms-5">{{ first?.course_code }}</h4>
+      </div>
+    </div>
+    </div>
+    </div>

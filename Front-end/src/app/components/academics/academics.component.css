@@ -1,0 +1,22 @@
+.time{
+  font-size: 10px;
+  margin: 0px !important;
+}
+.username{
+  margin-bottom: 0px !important;
+}
+
+.borderclr{
+  border-color: var(--maincolor) !important;
+}
+
+.clas{
+  width: 50px;
+}
+.font{
+  font-size: 48px;
+}
+.profileImage{
+  width: 45px !important;
+  height: 45px !important;
+}

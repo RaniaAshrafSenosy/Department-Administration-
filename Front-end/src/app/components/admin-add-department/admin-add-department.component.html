@@ -1,0 +1,65 @@
+<h2 class="mt-5 my-3 fw-bold mainfntclr"> {{ 'Add Department' | translate }}</h2>
+<form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+  <label class="fw-bold mainfntclr" for="dept_name"> {{ 'Department Name' | translate }}</label>
+  <input type="text" id="dept_name" formControlName="dept_name" class="form-control my-3">
+  <div *ngIf="registerForm.get('dept_name') && registerForm.get('dept_name')?.touched">
+      <p *ngIf="registerForm.get('dept_name')?.getError('required')" class="text-danger"> {{ 'Department Name is Required' | translate }}</p>
+      <p *ngIf="registerForm.get('dept_name')?.getError('pattern')" class="text-danger"> {{ 'Department Name can not contain numbers' | translate }}</p>
+      <p *ngIf="registerForm.get('dept_name')?.getError('minlength')" class="text-danger"> {{ 'Department Name should be at least 5 words' | translate }}</p>
+      <p *ngIf="ErrorMessage2" class="alert alert-danger">
+        {{ ErrorMessage2 }}
+      </p>
+    </div>
+    <label  class="fw-bold mainfntclr" for="dept_code"> {{ 'Department Code' | translate }}</label>
+    <input type="text" id="dept_code" formControlName="dept_code" class="form-control my-3">
+    <div *ngIf="registerForm.get('dept_code') && registerForm.get('dept_code')?.touched">
+        <p *ngIf="registerForm.get('dept_code')?.getError('required')" class="text-danger"> {{ 'Department Code is Required' | translate }}</p>
+        <p *ngIf="registerForm.get('dept_code')?.getError('pattern')" class="text-danger"> {{ 'Department Code can not contain numbers' | translate }}</p>
+        <p *ngIf="registerForm.get('dept_code')?.getError('minlength')" class="text-danger"> {{ 'Department Code should be at least 2 words' | translate }}</p>
+        <p *ngIf="ErrorMessage1" class="alert alert-danger">
+          {{ ErrorMessage1 }}
+        </p>
+      </div>
+      <label  class="fw-bold mainfntclr" for="desc"> {{ 'Department Description' | translate }}</label>
+      <input type="text" id="desc" formControlName="desc" class="form-control my-3">
+      <div *ngIf="registerForm.get('desc') && registerForm.get('desc')?.touched">
+          <p *ngIf="registerForm.get('desc')?.getError('required')" class="text-danger"> {{ 'Department Description is Required' | translate }}</p>
+
+        </div>
+        <!-- <label for="head">Head Name</label>
+        <input type="text" id="head" formControlName="head" class="form-control my-3">
+        <div *ngIf="registerForm.get('head') && registerForm.get('head')?.touched">
+            <p *ngIf="registerForm.get('head')?.getError('required')" class="text-danger">Head Name is Required</p>
+            <p *ngIf="registerForm.get('head')?.getError('pattern')" class="text-danger">Head Namecan't contain numbers</p>
+            <p *ngIf="registerForm.get('head')?.getError('minlength')" class="text-danger">Head Name should be at least 2 words </p>
+          </div> -->
+          <label   class="fw-bold mainfntclr" for="booklet"> {{ 'Booklet File' | translate }}</label>
+          <input
+            (change)="onbookletFileSelected($event)"
+            name="booklet"
+             type="file"
+              id="booklet"
+              formControlName="booklet"
+               class="form-control my-3">
+          <div *ngIf="registerForm.get('booklet')&& registerForm.get('booklet')?.touched">
+              <p *ngIf="registerForm.get('booklet')?.getError('required')" class="text-danger"> {{ 'Booklet File is Required' | translate }}</p>
+              <p *ngIf="registerForm.get('booklet')?.getError('pattern')" class="text-danger"> {{ 'Booklet File should have only pdf, doc, docx extensions' | translate }}</p>
+
+            </div>
+          <label  class="fw-bold mainfntclr" for="bylaw"> {{ 'Bylaw File' | translate }}</label>
+          <input
+            (change)="onbylawFileSelected($event)"
+            name="bylaw"
+             type="file"
+              id="bylaw"
+              formControlName="bylaw"
+               class="form-control my-3">
+          <div *ngIf="registerForm.get('bylaw')&& registerForm.get('bylaw')?.touched">
+              <p *ngIf="registerForm.get('bylaw')?.getError('required')" class="text-danger"> {{ 'Bylaw File is Required' | translate }}</p>
+          </div>
+          <button  [disabled]="registerForm.invalid" class="btn btn-primary float-end">  {{ 'Submit' | translate }}</button>
+
+          <div class="clear-both"></div>
+
+
+</form>

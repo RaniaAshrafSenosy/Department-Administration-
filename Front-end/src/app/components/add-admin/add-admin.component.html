@@ -1,0 +1,53 @@
+<h2 class="mt-5 my-3 mainfntclr fw-bold">{{ 'Add Admin Form' | translate }}</h2>
+<form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+    <label class="mainfntclr fw-bold" for="name"> {{ 'Full Name' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <input type="text" id="name" formControlName="name" class="form-control my-3">
+    <div *ngIf="registerForm.get('name') && registerForm.get('name')?.touched">
+        <p *ngIf="registerForm.get('name')?.getError('required')" class="text-danger"> {{ 'Full Name is Required' | translate }}</p>
+        <p *ngIf="registerForm.get('name')?.getError('pattern')" class="text-danger" >  {{ 'Numbers are not allowed in Full Name' | translate }}</p>
+        <p *ngIf="registerForm.get('name')?.getError('minlength')" class="text-danger"> {{ 'First Name should be at least 3 characters' | translate }}</p>
+        <p *ngIf="registerForm.get('name')?.getError('maxlength')" class="text-danger"> {{ 'First Name should be maximum 40 characters' | translate }}</p>
+    </div>
+    <label class="mainfntclr fw-bold" for="email"> {{ 'Main Email' | translate }}
+      <span class="text-danger">*</span></label>
+    <input type="email" id="email" formControlName="email" class="form-control my-3">
+    <div *ngIf="registerForm.get('email')&& registerForm.get('email')?.touched">
+        <p *ngIf="registerForm.get('email')?.getError('required')" class="text-danger"> {{ 'Email is Required' | translate }}</p>
+        <p *ngIf="registerForm.get('email')?.getError('pattern')" class="text-danger"> {{ 'Email should match the format username@domainname.extension' | translate }}</p>
+        <p *ngIf="emailErrorMessage" class="alert alert-danger">{{emailErrorMessage}} </p>
+    </div>
+    <div class="form-group">
+      <label class="mainfntclr fw-bold" for="password"> {{ 'Password' | translate}}
+        <span class="text-danger">*</span></label>
+      <input
+        formControlName="password"
+        type="text"
+        class="form-control my-3"
+      />
+      <p *ngIf="registerForm.get('password')&& registerForm.get('password')?.getError('required')&& registerForm.get('password')?.touched" class="text-danger"> {{ 'Password is Required' | translate }}</p>
+        <p *ngIf="registerForm.get('password')?.getError('pattern')" class="text-danger"> {{ 'Password should be Minimum eight characters' | translate }}</p>
+    </div>
+    <div  class="form-group">
+      <label class="mainfntclr fw-bold" for="cpassword"> {{ 'Confirm Password' | translate }}
+        <span class="text-danger">*</span></label>
+      <input
+        formControlName="cpassword"
+        type="text"
+        class="form-control my-3"
+      />
+      <p
+      *ngIf="registerForm.get('cpassword')&&registerForm.get('cpassword')?.getError('required')&& registerForm.get('password')?.touched"
+      class="text-danger"> {{ 'Confirm Password is Required' | translate }}</p>
+
+      <small
+        *ngIf="registerForm.errors&& registerForm.get('cpassword')?.touched"
+        class="text-danger"
+        > {{ 'Confirm Password missmatch' | translate }} </small
+      >
+    </div>
+    <button [disabled]="registerForm.invalid" class="btn btn-primary float-end">  {{ 'Register' | translate }}</button>
+    <div class="clear-both"></div>
+
+</form>

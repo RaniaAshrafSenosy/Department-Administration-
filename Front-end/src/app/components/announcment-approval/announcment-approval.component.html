@@ -1,0 +1,247 @@
+
+<div class=" w-100 pt-4">
+  <div class="announcements  container overflow-auto">
+    <div  *ngFor="let announcment of announcmentArray;let in=index">
+     <div class="announcement  pt-3 pb-3 mb-3   border border-3 border-dark  rounded-5"
+      *ngIf="dept==announcment.target_dept&&!allAnnouncement">
+      <div class="d-flex">
+        <!-- <div><img *ngIf="announcment.user_img_url?.endsWith('media')" src="" alt=""> <i class="fa-solid mx-3 fs-1 fa-circle-user"></i></div>
+        <div class="w-100"><img  *ngIf="!announcment.user_img_url?.endsWith('media')" [src]="announcment.user_img_url" alt="" class="rounded-circle w-100"> </div> -->
+        <div class="clas ms-3 me-2">
+          <img *ngIf="!announcment.user_img_url?.endsWith('media')" [src]="announcment.user_img_url" class="rounded-circle w-100">
+          <i *ngIf="announcment.user_img_url?.endsWith('media')" class=" fa-solid  font fa-circle-user"></i>
+      </div>
+        <div>
+          <h4 class="username">{{announcment.user_full_name}}</h4>
+          <h6
+
+
+           class=" ps-2 me-auto time">{{announcment.datetime.split(',')}}</h6>
+        </div>
+      </div>
+      <div class="fw-bold ms-3">
+        {{announcment.title}}
+      </div>
+      <!-- <div *ngFor="let item of announcment.target_role">
+        {{item}}
+      </div> -->
+
+      <p class="mx-3 w-75 text-center">
+        {{announcment.body}}
+
+      </p>
+      <div class="d-flex align-items-center  justify-content-around">
+        <div >
+          <button
+          class="btn btn-success px-4 py-2"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#exampleModal1' + in"
+          (click)="changemodal(true)"
+        >
+          Accept
+        </button>
+        </div>
+        <div >
+          <button
+          class="btn btn-danger px-4 py-2"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#exampleModal1' + in"
+          (click)="changemodal(false)"
+        >
+          Reject
+        </button>
+        </div>
+      </div>
+     </div>
+
+     <div
+     *ngIf="allAnnouncement"
+     class="announcement  pt-3 pb-3 mb-3   border border-3 border-dark  rounded-5">
+      <div class="d-flex">
+        <!-- <div><img *ngIf="announcment.user_img_url?.endsWith('media')" src="" alt=""> <i class="fa-solid mx-3 fs-1 fa-circle-user"></i></div>
+        <div class="w-100"><img  *ngIf="!announcment.user_img_url?.endsWith('media')" [src]="announcment.user_img_url" alt="" class="rounded-circle w-100"> </div> -->
+        <div class="clas ms-3 me-2">
+          <img *ngIf="!announcment.user_img_url?.endsWith('media')" [src]="announcment.user_img_url" class="rounded-circle w-100">
+          <i *ngIf="announcment.user_img_url?.endsWith('media')" class=" fa-solid  font fa-circle-user"></i>
+      </div>
+        <div>
+          <h4 class="username">{{announcment.user_full_name}}</h4>
+          <h6
+
+          class=" ps-2 me-auto time">{{announcment.datetime.split(' ')}}</h6>
+        </div>
+      </div>
+      <div class="fw-bold ms-3">
+        {{announcment.title}}
+      </div>
+      <!-- <div *ngFor="let item of announcment.target_role">
+        {{item}}
+      </div> -->
+
+      <p class="mx-3 w-75 text-center">
+        {{announcment.body}}
+
+      </p>
+      <div class="d-flex align-items-center  justify-content-around">
+        <div >
+          <button
+          class="btn btn-success px-4 py-2"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#exampleModal' + in"
+          (click)="changemodal(true)"
+        >
+          Accept
+        </button>
+          <!-- <button (click)="accept(announcment?.announcement_id)"  class="btn btn-success">accept</button> -->
+        </div>
+        <div >
+          <button
+          class="btn btn-danger px-4 py-2"
+          data-bs-toggle="modal"
+          [attr.data-bs-target]="'#exampleModal' + in"
+          (click)="changemodal(false)"
+        >
+          Reject
+        </button>
+          <!-- <button (click)="reject(announcment?.announcement_id)" class="btn btn-danger ">reject</button> -->
+        </div>
+      </div>
+     </div>
+
+     <div
+     class="modal fade"
+     [attr.id]="'exampleModal' + in"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true"
+   >
+     <div class="modal-dialog modal-dialog-centered" >
+       <div class="modal-content">
+         <div class="modal-header">
+           <h1
+             class="modal-title fs-5"
+             *ngIf="modaltype"
+             id="exampleModalLabel"
+           >
+             Accept request
+           </h1>
+           <h1
+             class="modal-title fs-5"
+             *ngIf="!modaltype"
+             id="exampleModalLabel"
+           >
+             Reject request
+           </h1>
+           <button
+             type="button"
+             class="btn-close"
+             data-bs-dismiss="modal"
+             aria-label="Close"
+           ></button>
+         </div>
+         <div *ngIf="modaltype" class="modal-body">
+           Are you sure you want to accept?
+         </div>
+         <div *ngIf="!modaltype" class="modal-body">
+           Are you sure you want to reject?
+         </div>
+         <div class="modal-footer">
+           <button
+             type="button"
+             class="btn btn-secondary"
+             data-bs-dismiss="modal"
+           >
+             Cancel
+           </button>
+           <button
+             type="button "
+             *ngIf="modaltype"
+             class="btn btn-success"
+             data-bs-dismiss="modal"
+             (click)="accept(announcment?.announcement_id)"
+           >
+             Accept
+           </button>
+           <button
+            type="button"
+             *ngIf="!modaltype"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+              (click)="reject(announcment?.announcement_id)"
+              >
+             Reject
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+   <div
+     class="modal fade"
+     [attr.id]="'exampleModal1' + in"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel1"
+     aria-hidden="true"
+   >
+     <div class="modal-dialog modal-dialog-centered" >
+       <div class="modal-content">
+         <div class="modal-header">
+           <h1
+             class="modal-title fs-5"
+             *ngIf="modaltype"
+             id="exampleModalLabel1"
+           >
+             Accept request
+           </h1>
+           <h1
+             class="modal-title fs-5"
+             *ngIf="!modaltype"
+             id="exampleModalLabel1"
+           >
+             Reject request
+           </h1>
+           <button
+             type="button"
+             class="btn-close"
+             data-bs-dismiss="modal"
+             aria-label="Close"
+           ></button>
+         </div>
+         <div *ngIf="modaltype" class="modal-body">
+           Are you sure you want to accept?
+         </div>
+         <div *ngIf="!modaltype" class="modal-body">
+           Are you sure you want to reject?
+         </div>
+         <div class="modal-footer">
+           <button
+             type="button"
+             class="btn btn-secondary"
+             data-bs-dismiss="modal"
+           >
+             Cancel
+           </button>
+           <button
+             type="button "
+             *ngIf="modaltype"
+             class="btn btn-success"
+             data-bs-dismiss="modal"
+             (click)="accept(announcment?.announcement_id)"
+           >
+             Accept
+           </button>
+           <button
+            type="button"
+             *ngIf="!modaltype"
+              class="btn btn-danger"
+              data-bs-dismiss="modal"
+              (click)="reject(announcment?.announcement_id)"
+              >
+             Reject
+           </button>
+         </div>
+       </div>
+     </div>
+   </div>
+
+    </div>
+  </div>

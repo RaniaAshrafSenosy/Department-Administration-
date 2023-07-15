@@ -1,0 +1,76 @@
+<h2 class="mt-5 my-3 mainfntclr fw-bold">{{ 'Assign Course' | translate }}</h2>
+<form [formGroup]="Form" (ngSubmit)="submitForm(Form)">
+  <div>
+    <label for="dept_code" class="me-3 form-label mainfntclr fw-bold">{{ 'Department Code' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+  <select  [(ngModel)]="codee" formControlName="dept_code" (change)="get(codee)" class="form-select  w-50 d-inline">
+    <option  disabled>{{ 'Select Department Code' | translate }}</option>
+    <option
+          *ngFor="let code of deptCodes" [ngValue]="code.dept_code"
+
+          >
+            {{code.dept_code}}
+    </option>
+  </select>
+  </div>
+    <div class="my-4" >
+      <label for="course_code" class="me-5 mainfntclr fw-bold form-label">{{ 'Course Code' | translate }}<span class="text-danger">*</span></label>
+    <select   formControlName="course_code" class="form-select ms-2 d-inline w-50">
+      <option  disabled>{{ 'Select Course Code' | translate }} </option>
+      <option
+            *ngFor="let code of deptCourses" [ngValue]="code.course_code"
+
+            >
+              {{code.course_code}}
+      </option>
+    </select>
+    <div *ngIf="Form.get('name') && Form.get('course_code')?.touched">
+        <p *ngIf="Form.get('course_code')?.getError('required')" class="text-danger">{{ 'Full Name is Required' | translate }}</p>
+        <p *ngIf="Form.get('course_code')?.getError('pattern')" class="text-danger">{{ 'Full Name can not contain numbers' | translate }}</p>
+        <p *ngIf="Form.get('course_code')?.getError('minlength')" class="text-danger">{{ 'First Name should be at least 3 characters' | translate }} </p>
+        <p *ngIf="Form.get('course_code')?.getError('maxlength')" class="text-danger">{{ 'First Name should be maximum 40 characters' | translate }}</p>
+    </div>
+    </div>
+    <label class="mainfntclr fw-bold me-2"  for="academic_year">{{ 'Academin Year' | translate }} <span class="text-danger">*</span></label>
+    <input  type="text" id="academic_year" formControlName="academic_year" class="form-control w-50 my-3 ms-4 me-5 mb-4 d-inline">
+    <div *ngIf="Form.get('academic_year')&& Form.get('academic_year')?.touched">
+        <p *ngIf="Form.get('academic_year')?.getError('required')" class="text-danger">{{ 'Academin Year is Required' | translate }}</p>
+        <p *ngIf="Form.get('academic_year')?.getError('pattern')" class="text-danger">{{ 'Academin Year should match the format username@domainname.extension' | translate }}</p>
+    </div>
+   <div> <label class="me-4 mainfntclr fw-bold ms-2" for="semester">{{ 'Semester' | translate }}<span class="text-danger">*</span></label>
+    <select [(ngModel)]="semseterSelect" formControlName="semester" (change)="getSemster(semseterSelect)" class="form-select w-50 me-2 mx-5 d-inline">
+      <option  disabled>{{ 'Select Semester' | translate }}</option>
+      <option
+            *ngFor="let semseter of semester" [ngValue]="semseter"
+            >
+              {{semseter}} {{ 'Semester' | translate }}
+      </option>
+    </select>
+    <div *ngIf="Form.get('semester')&& Form.get('semester')?.touched">
+        <p *ngIf="Form.get('semester')?.getError('required')" class="text-danger">{{ 'Semester is Required' | translate }}</p>
+
+      </div></div>
+<div>
+  <label for="professors" class="mt-4 mainfntclr fw-bold">{{ 'Professors' | translate }}<span class="text-danger">*</span></label>
+  <div *ngFor="let prof of professors  let i=index">
+    <input type="checkbox" formArrayName="professors" [value]="prof.Full_name" (change)="onCheckboxChangeP($event)"
+    />
+    {{ prof.Full_name}}
+  </div>
+</div>
+<div>
+  <label for="teaching_Assistants" class="mt-4 mainfntclr fw-bold">{{ 'TAs' | translate }}</label>
+  <div *ngFor="let ta of TAs  let i=index">
+    <input type="checkbox" formArrayName="teaching_Assistants" [value]="ta.Full_name" (change)="onCheckboxChangeTA($event)"
+    />
+    {{ ta.Full_name}}
+  </div>
+
+</div>
+
+
+    <button [disabled]="Form.invalid" class="btn btn-primary float-end"> {{ 'Register' | translate }}</button>
+    <div class="clear-both"></div>
+
+</form>

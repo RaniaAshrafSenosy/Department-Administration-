@@ -1,0 +1,197 @@
+<div class=" w-100 pt-4 addannouncement">
+  <div   class=" my-4   ms-5     me-5">
+    <input class="py-3 px-4  rounded-pill input-group w-100  text-dark " placeholder="Search User?...." (keyup)="search($event)">
+  </div>
+  <div *ngIf="visible">
+    <div    class="px-3">
+      <div  class="row d-flex justify-content-center  ">
+        <div *ngFor="let user of userData ;let in = index "  class="bg-light  addannouncement col-md-4 mx-3  py-3 mb-3  border border-3 border-dark borderclr rounded-5">
+          <div class="d-flex">
+            <!-- (click)="getProfile(professor?.user_id)"  -->
+            <div class="clas me-2">
+                <img *ngIf="user?.images?.length>base.length" [src]="user?.images"  class="rounded-circle w-100">
+                <i *ngIf="user?.images?.length==base.length" class=" fa-solid  font fa-circle-user"></i>
+            </div>
+            <div>
+              <h4 class="username">{{user.users?.full_name}}</h4>
+              <span class="d-block">{{user.users?.role}}</span>
+              <span>{{user.users?.dept_code}}</span>
+            </div>
+
+          </div>
+          <div class=" ">
+            <div class="d-flex justify-content-center me-3 " >
+              <div>
+                <button  type="button"
+                class="btn button btn-danger me-2"
+                data-bs-toggle="modal"
+                [attr.data-bs-target]="'#staticBackdrop' + in"
+                data-bs-target="#staticBackdrop"
+                > {{ 'Archive' | translate }}</button>
+
+              </div>
+              <div>
+                <button (click)="update(user?.users?.user_id)" class="btn button btn-success me-2 "> {{ 'Update' | translate }}</button>
+              </div>
+              <div *ngIf="!user?.users?.privileged_user">
+              <button  (click)="promoteUser(user?.users.user_id)"
+              [attr.data-bs-target]="'#exampleModal' + in" type="button" data-bs-dismiss="modal" class="btn button main text-white me-2"  data-bs-toggle="modal" data-bs-target="#exampleModal">
+                {{ 'Promote' | translate }}
+              </button>
+
+            </div>
+            <div class="modal fade"
+           [attr.id]="'exampleModal' + in"
+
+             tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel"> {{ 'Promotion' | translate }}</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    {{user.users?.full_name}} {{ 'is successfully promoted' | translate }}
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close' | translate }}</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            </div>
+          </div>
+          <div class="modal fade"
+         id="staticBackdrop"
+          data-bs-backdrop="static"
+           data-bs-keyboard="false"
+           [attr.id]="'staticBackdrop' + in"
+           tabindex="-1"
+           aria-labelledby="staticBackdropLabel"
+            aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel"> {{ 'Archive User' | translate }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                 {{ 'Are you Sure You Want to Archive' | translate }} {{user.users?.full_name}}?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> {{ 'Close' | translate }}</button>
+                <button  type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="Archive(user?.users?.user_id)"> {{ 'Archive' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        </div>
+
+
+    </div>
+
+    </div>
+  </div>
+  <div *ngIf="!visible" class="addannouncement">
+    <div  class="px-5">
+      <div  class="row d-flex justify-content-center addannouncement  ">
+        <div *ngFor="let user of userData;let in = index "  class="bg-light  addannouncement col-lg-3 mx-3  py-3 mb-3  border border-3 border-dark borderclr rounded-5">
+          <div   class="d-flex row" role="button">
+            <div class="col-md-6 " >
+              <div class="clas me-2">
+                <img *ngIf="user?.image?.length>base.length" [src]="user?.image"  class="rounded-circle w-100">
+                <i *ngIf="user?.image?.length==base.length" class=" fa-solid  font fa-circle-user"></i>
+            </div>
+              <div>
+                <h4 class="username">{{user?.full_name}}</h4>
+                <span class="d-block">{{user?.role}}</span>
+                <span>{{user?.dept_code}}</span>
+              </div>
+            </div>
+            <div class="">
+              <div class="d-flex justify-content-center" >
+                <div>
+                  <button  type="button"
+                  class="btn button btn-danger
+                  me-2"
+                  data-bs-toggle="modal"
+                  [attr.data-bs-target]="'#staticBackdrop' + in"
+                  data-bs-target="#staticBackdrop"
+                  > {{ 'Archive' | translate }} </button>
+
+                </div>
+                <div>
+                  <button (click)="update(user?.users.user_id)" class="btn button btn-success me-2"> {{ 'Update' | translate }}</button>
+
+                </div>
+                <div *ngIf="!user?.users?.privileged_user">
+                  <button  (click)="promoteUser(user?.users.user_id)"
+                  [attr.data-bs-target]="'#exampleModal' + in" type="button" class="btn button main text-white me-2" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    {{ 'Promote' | translate }}
+                  </button>
+
+                </div>
+                <div class="modal fade"
+               [attr.id]="'exampleModal' + in"
+
+                 tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel"> {{ 'Promotion' | translate }}</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        {{user.users?.full_name}}  {{ 'is successfully promoted' | translate }}
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"> {{ 'Close' | translate }}</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+          </div>
+          <div class="modal fade"
+         id="staticBackdrop"
+          data-bs-backdrop="static"
+           data-bs-keyboard="false"
+           [attr.id]="'staticBackdrop' + in"
+           tabindex="-1"
+           aria-labelledby="staticBackdropLabel"
+            aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Archive User {{ 'Close' | translate }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                Are you Sure You Want to Archive {{ 'Close' | translate }} {{user.users?.full_name}}?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close {{ 'Close' | translate }}</button>
+                <button  type="button" class="btn btn-primary " data-bs-dismiss="modal" (click)="Archive(user?.users?.user_id)">Archive {{ 'Close' | translate }}</button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+        </div>
+    </div>
+
+    </div>
+  </div>
+
+
+
+
+
+
+

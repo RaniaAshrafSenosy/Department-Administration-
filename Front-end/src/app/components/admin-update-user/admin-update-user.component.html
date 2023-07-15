@@ -1,0 +1,64 @@
+ <!-- password mainemail fullname role dept code is active start date endstart -->
+ <div class="row d-flex justify-content-md-between">
+  <div class="m-4">
+    <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+      <label for="full_name">{{ 'Full Name' | translate }}</label>
+      <input
+        [value]="user?.full_name"
+        type="text"
+        id="full_name"
+        formControlName="full_name"
+        class="form-control my-3"
+      />
+      <label for="main_email">{{ 'Main Email' | translate }}</label>
+      <input
+        type="email"
+        id="main_email"
+        formControlName="main_email"
+        [value]="user?.main_email"
+        class="form-control my-3"
+      />
+      <label for="dept_code">{{ 'Department Code' | translate }}</label>
+      <select   formControlName="dept_code" class="form-select w-25 ">
+        <!-- <option  disabled>Select Department Code </option> -->
+        <option
+              *ngFor="let code of deptCodes"
+
+               [selected]="user.dept_code==code.dept_code"
+              >
+                {{code?.dept_code}}
+        </option>
+      </select>
+      <input
+        type="email"
+        id="main_email"
+        formControlName="main_email"
+        [value]="user?.main_email"
+        class="form-control my-3"
+      />
+      <label for="role">{{ 'Role' | translate }}</label>
+  <div  *ngFor="let role of roles">
+<label class="form-check-label ms-3">
+<input
+type="radio"
+id="role"
+class="form-check-input"
+
+[value]="role"
+[checked]="user?.role===role"
+(change)="user.role=role"
+
+formControlName="role"/>{{ role }}
+</label>
+  </div>
+      <button
+        [disabled]="registerForm.invalid"
+        class="btn btn-primary float-end"
+      >
+        {{ 'Update' | translate }}
+      </button>
+      <div class="clear-both"></div>
+    </form>
+  </div>
+
+</div>

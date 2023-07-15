@@ -1,0 +1,84 @@
+<div class="m-4">
+  <h2 class="mainfntclr fw-bold">Update Department</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+
+    <label class="fw-bold mainfntclr" for="dept_name">Department Name</label>
+    <input
+      [value]="departmentInstance?.dept_name"
+      type="text"
+      id="dept_name"
+      formControlName="dept_name"
+      class="form-control my-3"
+    />
+    <div *ngIf="registerForm.get('dept_name')&& registerForm.get('dept_name')?.touched">
+      <p *ngIf="registerForm.get('dept_name')?.getError('required')" class="text-danger">Department Name is Required</p>
+      <p *ngIf="registerForm.get('dept_name')?.getError('pattern')" class="text-danger">Department Name can't contain Numbers</p>
+      <p *ngIf="registerForm.get('dept_name')?.getError('minlength')" class="text-danger">Department Name should be at least 5 words</p>
+    </div>
+    <label class="fw-bold mainfntclr" for="desc">Description</label>
+    <input
+      [value]="departmentInstance?.desc"
+      type="text"
+      id="desc"
+      formControlName="desc"
+      class="form-control my-3"
+    />
+    <div *ngIf="registerForm.get('desc')&& registerForm.get('desc')?.touched">
+      <p *ngIf="registerForm.get('desc')?.getError('required')" class="text-danger">Description is Required</p>
+      <p *ngIf="registerForm.get('desc')?.getError('pattern')" class="text-danger">Description can't contain Numbers</p>
+      </div>
+ 
+<div>
+  <label for="head" class="me-3 fw-bold mainfntclr form-label">Head of Department</label>
+  <select  [(ngModel)]="codee" formControlName="head"  class="form-select w-25 d-inline">
+    <option  disabled>Select Head Name </option>
+    <option
+          *ngFor="let name of fullNames" [ngValue]="name.Full_name"
+          >
+            {{name.Full_name}}
+    </option>
+  </select>
+  <div *ngIf="registerForm.get('head')&& registerForm.get('head')?.touched">
+    <p *ngIf="registerForm.get('head')?.getError('required')" class="text-danger">head Name is Required</p>
+    <p *ngIf="registerForm.get('head')?.getError('pattern')" class="text-danger">head Name can't contain Numbers</p>
+    <p *ngIf="registerForm.get('head')?.getError('minlength')" class="text-danger">head Name should be at least 5 words</p>
+  </div>
+</div>
+
+    <label  class="fw-bold mainfntclr" for="bylaw">Bylaw File</label>
+    <input
+      (change)="onbylawFileSelected($event)"
+      name="bylaw"
+       type="file"
+        id="bylaw"
+        formControlName="bylaw"
+
+         class="form-control my-3">
+    <div *ngIf="registerForm.get('bylaw')&& registerForm.get('bylaw')?.touched">
+    <p *ngIf="registerForm.get('bylaw')?.getError('required')" class="text-danger">Bylaw File is Required</p>
+    </div>
+    <div  class="border-2  form-control w-25" *ngIf="!this?.deptBylaw?.endsWith('media')">
+        <a  class="text-decoration-none mainfntclr" [href]="departmentInstance?.bylawURL" target="_blank">{{this?.deptBylaw}}</a>
+    </div>
+
+    <label  class="fw-bold mainfntclr" for="booklet">Booklet File</label>
+    <input
+      (change)="onbookletFileSelected($event)"
+      name="booklet"
+       type="file"
+        id="booklet"
+        formControlName="booklet"
+         class="form-control my-3">
+    <div *ngIf="registerForm.get('booklet')&& registerForm.get('booklet')?.touched">
+        <p *ngIf="registerForm.get('booklet')?.getError('required')" class="text-danger">Booklet File is Required</p>
+    </div>
+    <div  class="border-2  form-control w-25" *ngIf="!this?.deptBooklet?.endsWith('media')">
+      <a  class="text-decoration-none mainfntclr" [href]="departmentInstance?.bookletURL" target="_blank">{{this?.deptBooklet}}</a>
+  </div>
+
+    <button  [disabled]="registerForm.invalid" class="btn btn-primary float-end"> Submit</button>
+
+    <div class="clear-both"></div>
+    </form>
+
+    </div>

@@ -1,0 +1,96 @@
+<div class="mt-5">
+  <h2 class="text-center mainfntclr fw-bold"> {{ 'All Requests' | translate }}</h2>
+  <div
+  class="container border border-2 borderclr bg-light rounded-3 my-4"
+    *ngFor="let vacations of allVacations; let in = index"
+  >
+  <div class="all d-flex flex-column pt-5" role="button">
+    <div class="w-100">
+      <div class="row text-center">
+        <div class="col-md-2 my-2">
+          <span class="fw-bold"> {{ 'Type' | translate }}:</span> {{ vacations.vacations.type }}
+        </div>
+        <div class="col-md-2 my-2">
+          <span class="fw-bold"> {{ 'Status' | translate }}:</span> {{ vacations.vacations?.status }}
+        </div>
+        <div class="col-md-2 my-2">
+          <span class="fw-bold"> {{ 'Start Date' | translate }}:</span> {{ vacations.vacations?.start_date }}
+        </div>
+        <div class="col-md-2 my-2">
+          <span class="fw-bold">{{ 'End Date ' | translate }}:</span> {{ vacations.vacations?.end_date }}
+        </div>
+        <div class="col-md-2 my-2">
+          <a class="text-decoration-none float-end"  [href]="vacations.attachment" target="_blank"><i class="fa fa-download mainfntclr"></i></a>
+          <span class="fw-bold"> {{ 'End Date' | translate }}:</span> {{ vacations.vacations?.end_date }}
+        </div>
+
+      </div>
+    </div>
+
+
+  </div>
+
+</div>
+<div
+class="container border border-2 borderclr bg-light rounded-3 my-4"
+  *ngFor="let legations of allLegaions; let in = index"
+>
+<div class="all d-flex flex-column pt-5" role="button">
+  <div class="w-100">
+    <div class="row text-center">
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'Type' | translate }}:</span> {{ legations.Legations.type }}
+      </div>
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'Status' | translate }}:</span> {{ legations.Legations?.status }}
+      </div>
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'Start Date' | translate }}:</span> {{ legations.Legations?.start_date }}
+      </div>
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'End Date ' | translate }}:</span> {{ legations.Legations?.end_date }}
+      </div>
+      <div class="col-md-2 my-2">
+        <a class="text-decoration-none float-end"  [href]="legations.attachment" target="_blank"><i class="fa fa-download mainfntclr"></i></a>
+        <span class="fw-bold">{{ 'End Date ' | translate }}:</span> {{ legations.Legations?.end_date }}
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+</div>
+<div
+class="container border border-2 borderclr bg-light rounded-3 my-4"
+  *ngFor="let secondments of allSecondments; let in = index"
+>
+<div class="all d-flex flex-column pt-5" role="button">
+  <div class="w-100">
+    <div class="row text-center">
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'Type' | translate }}:</span> {{ secondments.secondments.type }}
+      </div>
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'Status' | translate }}:</span> {{ secondments.secondments?.status }}
+      </div>
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'Start Date' | translate }}:</span> {{ secondments.secondments?.start_date }}
+      </div>
+      <div class="col-md-2 my-2">
+        <span class="fw-bold">{{ 'End Date ' | translate }}:</span> {{ secondments.secondments?.end_date }}
+      </div>
+      <div class="col-md-2 my-2">
+        <a class="text-decoration-none float-end"  [href]="secondments.attachment" target="_blank"><i class="fa fa-download mainfntclr"></i></a>
+        <span class="fw-bold">{{ 'End Date ' | translate }}:</span> {{ secondments.secondments?.end_date }}
+      </div>
+
+    </div>
+  </div>
+
+
+</div>
+
+</div>
+</div>

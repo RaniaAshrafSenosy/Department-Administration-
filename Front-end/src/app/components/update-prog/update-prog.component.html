@@ -1,0 +1,77 @@
+<div class="m-4">
+  <form [formGroup]="registerForm" (ngSubmit)="submitForm(registerForm)">
+
+    <label class="fw-bold mainfntclr" for="program_name"> {{ 'Program Name' | translate }}</label>
+    <input
+      [value]="programInstance?.program_name"
+      [attr.disabled]="disabled ? '' : null"
+      type="text"
+      id="program_name"
+      formControlName="program_name"
+      class="form-control my-3"
+    />
+
+    <label class="fw-bold mainfntclr" for="program_desc"> {{ 'Description' | translate }}</label>
+    <input
+      [value]="programInstance?.program_desc"
+      type="text"
+      id="program_desc"
+      formControlName="program_desc"
+      class="form-control my-3"
+    />
+    <div *ngIf="registerForm.get('program_desc')&& registerForm.get('program_desc')?.touched">
+      <p *ngIf="registerForm.get('program_desc')?.getError('required')" class="text-danger"> {{ 'Description is Required' | translate }}</p>
+      <p *ngIf="registerForm.get('program_desc')?.getError('pattern')" class="text-danger"> {{ 'Description can not contain Numbers' | translate }}</p>
+      </div>
+    <label for="program_head">{{ 'Head Of Program ' | translate }}</label>
+    <input
+      [value]="programInstance?.program_head"
+      type="text"
+      id="program_head"
+      formControlName="program_head"
+      class="form-control my-3"
+    />
+    <div *ngIf="registerForm.get('program_head')&& registerForm.get('program_head')?.touched">
+      <p *ngIf="registerForm.get('program_head')?.getError('required')" class="text-danger"> {{ 'head Name is Required' | translate }}</p>
+      <p *ngIf="registerForm.get('program_head')?.getError('pattern')" class="text-danger"> {{ 'head Name can not contain Numbers' | translate }}</p>
+      <p *ngIf="registerForm.get('program_head')?.getError('minlength')" class="text-danger"> {{ 'head Name should be at least 5 words' | translate }}</p>
+    </div>
+
+
+    <label  class="fw-bold mainfntclr" for="bylaw"> {{ 'Bylaw File' | translate }}</label>
+    <input
+      (change)="onbylawFileSelected($event)"
+      name="bylaw"
+       type="file"
+        id="bylaw"
+        formControlName="bylaw"
+
+         class="form-control my-3">
+    <div *ngIf="registerForm.get('bylaw')&& registerForm.get('bylaw')?.touched">
+    <p *ngIf="registerForm.get('bylaw')?.getError('required')" class="text-danger"> {{ 'Bylaw File is Required' | translate }}</p>
+    </div>
+    <div  class="border-2  form-control w-25" *ngIf="!this?.deptBylaw?.endsWith('media')">
+        <a  class="text-decoration-none mainfntclr" [href]="this.bylaw" target="_blank">{{this?.deptBylaw}}</a>
+    </div>
+
+    <label  class="fw-bold mainfntclr" for="booklet"> {{ 'Booklet File' | translate }}</label>
+    <input
+      (change)="onbookletFileSelected($event)"
+      name="booklet"
+       type="file"
+        id="booklet"
+        formControlName="booklet"
+         class="form-control my-3">
+    <div *ngIf="registerForm.get('booklet')&& registerForm.get('booklet')?.touched">
+        <p *ngIf="registerForm.get('booklet')?.getError('required')" class="text-danger"> {{ 'Booklet File is Required' | translate }}</p>
+    </div>
+    <div  class="border-2  form-control w-25" *ngIf="!this?.deptBooklet?.endsWith('media')">
+      <a  class="text-decoration-none mainfntclr" [href]="this.booklet" target="_blank">{{this?.deptBooklet}}</a>
+  </div>
+
+    <button  [disabled]="registerForm.invalid" class="btn btn-primary float-end">  {{ 'Submit' | translate }}</button>
+
+    <div class="clear-both"></div>
+    </form>
+
+    </div>

@@ -1,0 +1,196 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary main py-1 my-0">
+  <div class="container-fluid">
+   <div class="row  w-50">
+    <div class="col-1">
+      <a class="navbar-brand mx-0  "  routerLink="/home">
+        <img src="../../../assets/images/images.jpeg" class="logo  me-3 rounded-5 " alt="logo">
+      </a>
+    </div>
+    <div class="col-11 mt-2">
+      <a class="nav-link active mb-0 fcai mt-1 text-white"  aria-current="page" routerLink="/home">{{ 'Faculty of computers and artificial intelligence' | translate }}</a>
+      <span class="nav-link  cu text-white">{{ 'Cairo university' | translate }}</span>
+    </div>
+   </div>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-1 ">
+
+      </ul>
+      <div class="d-flex" >
+        <ul class="navbar-nav me-auto mt-2 mb-2 mb-lg-0">
+          <li class="nav-item  me-2 text-white text-center"*ngIf="loggedIn">
+            <div>{{ 'Welcome' | translate }} </div>
+            <div>{{username}}</div>
+          </li>
+          <li class="nav-item  me-2">
+            <a class="nav-link active" aria-current="page" routerLink="notifications">
+            <button *ngIf="role!='Admin'" type="button" class="btn btn-primary main bordr position-relative">
+              <i  class="text-white fa-solid fa-bell fs-4 mb-2"></i>
+              <span *ngIf="loggedIn&&this.NumberOfNotifications!=0"  class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                {{this.NumberOfNotifications}}
+                <span class="visually-hidden">{{ 'unread messages' | translate }}</span>
+              </span>
+            </button>
+          </a>
+          </li>
+          <li class="nav-item me-2">
+            <a *ngIf="!loggedIn||this.imageUrl?.endsWith('media')&&role!='Admin'"  class="nav-link active" aria-current="page" routerLink="/profile">
+              <i class="text-white fa-solid fa-circle-user text-white fs-2"></i>
+            </a>
+            <a *ngIf="loggedIn&&!this.imageUrl?.endsWith('media')&&role!='Admin'" class="nav-link active" aria-current="page" routerLink="/profile">
+              <img   [src]="imageUrl"  class="profileImage rounded-circle ">
+            </a>
+            <a *ngIf="role=='Admin'&&loggedIn"  class="nav-link active" aria-current="page" >
+                <i class="text-white fa-solid fa-circle-user text-white fs-2"></i>
+
+            </a>
+          </li>
+          <li class="nav-item me-2">
+            <button *ngIf="language=='en'" class="btn main text-white" (click)="changeLanguage()">AR</button>
+            <button *ngIf="language=='ar'" class="btn main text-white" (click)="changeLanguage()"> EN</button>
+          </li>
+
+
+        </ul>
+
+      </div>
+
+    </div>
+    <a class="btn btn-main  mt-1 me-4" data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+      <i class="text-white fs-4  fa-solid fa-bars "></i>
+    </a>
+  </div>
+</nav>
+<div class="offcanvas offcanvas-end  " tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header main ">
+    <h5 class="offcanvas-title text-white" id="offcanvasExampleLabel">{{ 'Menu' | translate }}</h5>
+    <button type="button" class="btn-close " data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body main">
+    <ul class="nav flex-column text-white">
+      <!-- secretary -->
+      <div *ngIf="role=='Secretary'&&loggedIn">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/viewAllVacation" >{{ 'view vacation requests' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/viewAllSecondment" >{{ 'view secondment requests' | translate }}</a>
+        </li>
+         <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/viewAllLegation" >{{ 'view legation requests' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/viewAllVacationNotPending">{{ 'viewAllVacationNotPending' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/viewAllSecondmentNotPending">{{ 'viewAllSecondmentNotPending' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/viewAllLegationNotPending">{{ 'viewAllLegationNotPending' | translate }}</a>
+        </li>
+      </div>
+      <!-- Admin -->
+      <div *ngIf="role=='Admin'||privilageUser=='1'&&loggedIn">
+        <!--  -->
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/AdminAddUser" >{{ 'Add User' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/addadmin" >{{ 'Create Admin' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/adminadddepartment" >{{ 'Create Department' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/adminaddcourse" >{{ 'Admin Add Course' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/AdminCreateProgram" > {{ 'Admin Create Program' | translate }}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/assigncourse" >{{ 'assigncourse' | translate }}</a>
+        </li>
+
+
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="adminacademics">{{ 'admin academics' | translate }}</a>
+        </li>
+
+      </div>
+      <!-- Head Dean Vice Dean -->
+      <div *ngIf="role=='Vice Dean'||role=='Dean'||role=='Head of Department'||role=='Secretary'&&loggedIn">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/announcementAprroval">{{ 'allannoucmentsforapproval' | translate }}</a>
+        </li>
+      </div>
+      <!-- not Admin && not sec -->
+      <div *ngIf="role!='Admin'&&role!='Secretary'&&loggedIn&&role!='Teaching Assistant'">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/mypostgraduate">{{ 'mypostgraduate' | translate }}</a>
+        </li>
+      </div>
+      <div *ngIf="role!='Admin'&&role!='Secretary'&&loggedIn">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/createannouncment">{{ 'createannouncment' | translate }}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/secondment" >{{ 'Create Secondment' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/vacation" >{{ 'Create Vacation' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/legation" >{{ 'Create Legation' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/usercourses" >{{ 'user courses' | translate }}</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/allUserRequests">{{ 'allUserRequests' | translate }}</a>
+        </li>
+
+      </div>
+      <!-- not admin -->
+      <div *ngIf="role!='Admin'&&loggedIn">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/myannouncements">{{ 'myannouncements' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/mydepartment">{{ 'My Department' | translate }}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/Academics">{{ 'Academics' | translate }}</a>
+        </li>
+
+
+      </div>
+      <div *ngIf="loggedIn&&role!='Admin'&&role!='Secretary'&&role=='Teaching Assistant'">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" routerLink="/postgradguest">{{ 'PostGraduate Guest' | translate }}</a>
+        </li>
+      </div>
+
+<div *ngIf="!loggedIn&&role!='Admin'&&role!='Secretary'">
+  <li class="nav-item">
+    <a class="nav-link active text-white" aria-current="page" routerLink="/postgradguest">{{ 'PostGraduate Guest' | translate }}</a>
+  </li>
+</div>
+<li class="nav-item">
+  <a class="nav-link active text-white" aria-current="page" routerLink="/alldepartments">{{ 'Departments' | translate }}</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active text-white" aria-current="page" routerLink="/allcourses">{{ 'All Courses' | translate }}</a>
+</li>
+
+
+      <li class="nav-item d-flex align-items-center">
+        <a class="nav-link active text-white" aria-current="page" routerLink=""  (click)="logout()" >{{ 'Log out' | translate }} </a>
+        <i class="fa-solid fa-right-from-bracket text-white"></i>
+      </li>
+
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,127 @@
+<h2 class="mt-5 mainfntclr my-3"> {{ 'Create Announcement' | translate }}</h2>
+<form [formGroup]="Form" (ngSubmit)="submitForm(Form)">
+  <label class="fw-bold mainfntclr" for="title">  {{ 'Announcement Title' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input
+    type="text"
+    id="title"
+    formControlName="title"
+    class="form-control my-3"
+  />
+  <div
+    *ngIf="
+      Form.get('title') && Form.get('title')?.touched
+    "
+  >
+    <p
+      *ngIf="Form.get('title')?.getError('required')"
+      class="text-danger"
+    >
+      {{ 'Title is Required' | translate }}
+    </p>
+    <p
+      *ngIf="Form.get('title')?.getError('pattern')"
+      class="text-danger"
+    >
+      {{ 'Title can not contain numbers' | translate }}
+    </p>
+    <p
+      *ngIf="Form.get('title')?.getError('minlength')"
+      class="text-danger"
+    >
+    {{ 'Title should be at least 2 words' | translate }}
+    </p>
+  </div>
+  <label class="fw-bold mainfntclr" for="body">{{ 'Announcement Body' | translate }}
+    <span class="text-danger">*</span>
+  </label>
+  <input
+    type="text"
+    id="body"
+    formControlName="body"
+    class="form-control my-3"
+  />
+  <div
+    *ngIf="
+      Form.get('body') && Form.get('body')?.touched
+    "
+  >
+    <p
+      *ngIf="Form.get('body')?.getError('required')"
+      class="text-danger"
+    >
+    {{ 'Body is Required' | translate }}
+    </p>
+    <p
+      *ngIf="Form.get('body')?.getError('pattern')"
+      class="text-danger"
+    >
+    {{ 'Body can not contain numbers' | translate }}
+    </p>
+    <p
+      *ngIf="Form.get('body')?.getError('minlength')"
+      class="text-danger"
+    >
+    {{ 'Body should be at least 2 words' | translate }}
+    </p>
+  </div>
+  <!--  -->
+  <div *ngIf="ispriviledeged" >
+    <label for="target_dept" class="fw-bold mainfntclr mt-4"> {{ 'Target Department' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <div id="target_dept" *ngFor="let ta of depts" class="ms-3">
+      <input type="checkbox" formArrayName="target_dept" [value]="ta.dept_code" (change)="onCheckboxChangedept($event)"
+      />
+      {{ ta.dept_code}}
+    </div>
+
+  </div>
+  <div *ngIf="!ispriviledeged" >
+    <label for="target_dept" class="fw-bold mainfntclr mt-4"> {{ 'Target Department' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <div id="target_dept"  class="ms-3">
+      <input type="checkbox" formArrayName="target_dept" [value]="mydept" (change)="onCheckboxChangedept($event)"
+      />
+      {{this.mydept}}
+    </div>
+
+  </div>
+  <div>
+    <label id="target_role" for="target_role" class="fw-bold mainfntclr mt-2"> {{ 'Target Role' | translate }}
+      <span class="text-danger">*</span>
+    </label>
+    <div *ngFor="let role of Roles" class="ms-3">
+      <input type="checkbox" formArrayName="target_role" [value]="role" (change)="onCheckboxChangerole($event)"
+      />
+      {{ role}}
+    </div>
+  </div>
+  <label  class=" mainfntclr fw-bold" for="file"> {{ 'Attachment File' | translate }}</label>
+  <input
+    (change)="onbookletFileSelected($event)"
+    name="file"
+    type="file"
+    id="file"
+    formControlName="file"
+    class="form-control my-3"
+  />
+  <div
+    *ngIf="Form.get('file') && Form.get('file')?.touched"
+  >
+
+    <p
+      *ngIf="Form.get('file')?.getError('pattern')"
+      class="text-danger"
+    >
+       {{ 'Booklet File should have only pdf, doc, docx extensions' | translate }}
+    </p>
+  </div>
+    <button [disabled]="Form.invalid" class="btn btn-primary float-end">
+     {{ 'Submit' | translate }}
+  </button>
+
+  <div class="clear-both"></div>
+</form>

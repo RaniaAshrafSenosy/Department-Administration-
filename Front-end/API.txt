@@ -1,0 +1,438 @@
+login                      (toqa)                     done
+POST: http://localhost:8000/api/login
+{
+  "main_email": "toqa@gmail.com",
+  "password": "12345678"
+  }
+-------------------------------
+addmin add user             (toqa)                     done
+POST: http://localhost:8000/api/users
+{
+  "full_name": "toqa",
+  "phone_number": "123456789",
+  "relative_number": "987654321",
+  "main_email": "toqa@gmail.com",
+  "password": "1234567",
+  "role": "DR",
+  "is_active": true,
+  "dept_code": "IS",
+  "start_date":"2008-04-29 13:39:33",
+  "end_date":"2023-04-29 13:39:33"
+}
+
+-----------------------------------
+admin update user              (toqa) 
+POST:http://localhost:8000/api/updateUser/1
+ {
+        "full_name": "Fatma A.Mohamed",
+        "main_email": "fatma@gmail.com",
+        "additional_email":"d@gmail.com",
+        "password": "1234567",
+        "role": "TA",
+        "office_location": "newhome",
+        "office_hour_day": "sunday",
+        "office_hour_time": "01:01:00",
+        "is_active": 0,
+        "dept_code": "IS",
+        "start_date": "2011-04-29",
+        "end_date": "2020-04-30"
+    }
+---------------------
+get profile              (toqa) 
+GET: http://localhost:8000/api/profile/2	done
+----------------------------
+edit profile              (toqa) 
+POST: http://localhost:8000/api/updateProfile/2
+{
+        "phone_number": "0101000000",
+        "relative_number": "01234568",
+        "role": "DR",
+        "password": "123456",
+        "dept_code": "IS",
+        "additional_email": "t@example.com",
+        "start_date": "2010-04-29 13:39:33",
+        "user_name": "teko",
+        "profile_links": "https://www.instagram.com/",
+        "title": "prof",
+        "office_location": "home",
+        "day_time": ["Monday", "Wednesday"],
+        "time_range": [{
+            "start": "10:00 AM",
+            "end": "12:00 PM",
+            "days": ["Monday"]
+        },
+        {
+            "start": "8:00 AM",
+            "end": "10:00 PM",
+            "days": ["Monday"]
+        },
+        {
+            "start": "1:00 PM",
+            "end": "3:00 PM",
+            "days": ["Wednesday"]
+        }],
+        "is_active": true,
+        "end_date": "2024-05-08",
+        "image": ""
+
+    }
+------------------------
+change password               (toqa)                       done
+	POST : http://localhost:8000/api/changePassword/2 
+{
+    "current_password":"1234567",
+    "new_password":"12345678",
+    "confirmed_password":"12345678"
+}
+---------------------------
+search user			(toqa) 			done
+POST :http://localhost:8000/api/search/{full_name}
+----------------------					done
+LOGOUT                           (toqa) 
+	GET :http://localhost:8000/api/logout
+-------------------------------
+CREATE COURSE                 (hajar) 
+	POST http://127.0.0.1:8000/api/course
+//in body->format-data
+course_code
+prerequisites
+credit_hours
+course_name
+course_desc
+course_specs   //file
+dept_code
+-------------------------------
+assign a course           (hajar) 		done
+POST	http://127.0.0.1:8000/api/assignCourse
+{
+    "dept_code": "IS",//
+    "course_code": "IS301",//
+    "semester": "second",//
+    "academic_year": "2021-2022",
+    "professors": [
+        "Shehab",
+        "hajardebian",
+        "Fatma"
+    ],
+    "teaching_Assistants": [
+        "Toqa",
+        "Rania"
+    ]
+}
+-----------------------------------
+get departments codes for dropdown menu			done
+GET 	http://127.0.0.1:8000/api/getDistinctDeptCodes
+-----------------------------------			done
+get course codes of a department for dropdown menu			done
+GET 	http://127.0.0.1:8000/api/getDistinctCourseCodes/{dept_code}
+-----------------------------------			done
+get professors full names of a department for dropdown menu
+GET 	http://127.0.0.1:8000/api/getProfessorsFullNames/{dept_code}
+-----------------------------------			done
+get TAs full names of a department for dropdown menu		done
+GET	http://127.0.0.1:8000/api/getTAsFullNames/{dept_code}
+------------------------------------------------
+UPDATE COURSE               (hajar) 
+	POST http://127.0.0.1:8000/api/updateCourse/1
+//in body->format-data
+course_code
+prerequisites
+credit_hours
+course_name
+course_desc
+course_specs   //file
+dept_code
+-------------------------------
+GET COURSE                  (hajar) 		done
+	GET http://127.0.0.1:8000/api/showCourse/1
+-------------------------------
+GET ALL COURSES           (hajar) 		done
+GET http://127.0.0.1:8000/api/showCourses
+-------------------------------
+GET ALL DEPARTMENTS 	     (toqa) 		done
+GET http://127.0.0.1:8000/api/showDepartments
+-------------------------------
+GET ALL USERS			(toqa) 		done
+GET http://127.0.0.1:8000/api/showUsers
+--------------------------------
+GET A DEPARTMENT		(toqa) 		done
+GET http://127.0.0.1:8000/api/showDepartment/1
+-------------------------------			done
+ARCHIVE USER 
+POST http://127.0.0.1:8000/api/archiveUser/1
+-------------------------------
+CREATE DEPARTMENT             (toqa)            done
+POST http://127.0.0.1:8000/api/department
+//in body->format-data
+dept_code
+dept_name
+desc
+head
+booklet     //file
+bylaw      //file
+--------------------------------
+ARCHIVE DEPARTMENT           (hajar) 
+POST http://127.0.0.1:8000/api/archiveDepartment/1
+----------------------------------
+UPDATE DEPARTMENT           (hajar)   
+POST http://127.0.0.1:8000/api/updateDepartment/1
+//in body->format-data
+dept_code
+dept_name
+desc
+head
+booklet     //file
+bylaw      //file
+---------------------------------
+ARCHIVE COURSE          (hajar) 
+POST http://127.0.0.1:8000/api/archiveCourse/1
+------------------------------
+CREATE ADMIN           (hajar)          (done)
+POST http://127.0.0.1:8000/api/createAdmin
+{
+    "name":"fatma",
+    "email":"fatma@gmail.com",
+    "password":"123456"
+}
+------------------------------
+UPDATE ADMIN           (hajar) 		done
+POST http://127.0.0.1:8000/api/updateAdmin/1
+{
+    "name":"fatma",
+    "email":"fatma@gmail.com",
+    "password":"123456"
+}
+-----------------------------
+PROMOTE ADMIN TO BE A SUPER ADMIN         (hajar) 
+POST http://127.0.0.1:8000/api/promoteAdmin/1
+--------------------------
+PROMOTE A USER TO BE AN ADMIN            (hajar) 
+POST http://127.0.0.1:8000/api/promoteUser/1
+-----------------------
+department that user choose 	(toqa) 		done
+http://localhost:8000/api/getDeptInfoDept/3
+id of department
+----------------------------------
+department with academic	(toqa) 		done
+http://localhost:8000/api/getDeptAcademic
+--------------------------------
+department with course		(toqa) 		done
+http://localhost:8000/api/getDeptCourses
+-------------------
+department of user who logged in         (toqa)  done
+	http://localhost:8000/api/getDeptInfoUser/3
+id of user 
+-------------------
+archive announcement            
+POST	http://localhost:8000/api/archiveAnnouncement/1
+----------------------
+create legation                (hajar)         done
+	POST	http://localhost:8000/api/createLegation
+	//takes a token in the headers 
+	//header key: Authorization
+	//header value: Bearer theToken
+//in form-data:
+attachment: //some file
+desc:leg2
+start_date:2023-04-13
+end_date:2023-05-13
+type:external
+----------------------------
+show a legation           (hajar) 
+GET	http://localhost:8000/api/getLegation/1
+---------------------------
+show all legations         (hajar) 
+GET	http://localhost:8000/api/showLegations
+---------------------------
+show the legations of a logged in user        (hajar) 
+GET	http://localhost:8000/api/showMyLegations
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+-----------------------------------
+create vacation          (hajar)             done
+POST	http://localhost:8000/api/createVacation
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+//in form-data:
+attachment: //some file
+desc:vacation2
+start_date:2023-04-13
+end_date:2023-05-13
+type:type2
+-------------------------------
+show a vacation          (hajar) 
+GET	http://localhost:8000/api/getVacation/1
+---------------------------
+show all vacations             (hajar) 
+GET	http://localhost:8000/api/showVacations
+---------------------------
+show the vacations of a logged in user       (hajar) 
+GET	http://localhost:8000/api/showMyVacations
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+--------------------------------------
+create a secondment         (hajar)            done 
+POST	http://localhost:8000/api/createSecondment
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+//in form-data:
+attachment: //some file
+desc:second 2
+start_date:2023-04-13
+end_date:2023-05-13
+type:hellowownmc
+country:oman
+-------------------------------
+show a secondment          (hajar) 
+GET	http://localhost:8000/api/getSecondment/1
+---------------------------
+show all secondments         (hajar) 
+GET	http://localhost:8000/api/showSecondments
+---------------------------
+show the Secondments of a logged in user        (hajar) 
+GET	http://localhost:8000/api/showMySecondments
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+---------------------------------------
+create a postgraduate application for user in the system    (done)    (hajar) 
+POST	http://localhost:8000/api/createPostgradApplication
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+//in form-data:
+attachment: //some file
+bachelor_certificate: //some file
+academic_year:2022-2023
+gender:female
+nationality:la la land
+registration_date:2023-11-11
+credit_hours:1.5
+preliminary_date:2023-10-12
+telephone_number:0207875578
+employer:youssef
+employer_address:down town
+grade:A+
+faculty_name:faculty of computers and ai
+graduation_date:2023-10-10
+university_name:cairo uni
+research_topic_AR:بحث
+research_topic_EN:research
+research_interest:robotics
+target:college staff
+specialization:content management system
+field_of_research:archiving systems
+supervisor_name:iman helal
+supervisor_role:professor
+phone_number:01551939631
+-------------------------------- 
+show a Postgrad Application               (hajar) 
+GET	http://localhost:8000/api/getPostgradApplication/1
+---------------------------
+show all Postgrad Applications            (hajar) 
+GET	http://localhost:8000/api/showPostgradApplications
+---------------------------
+show the Postgrad Applications of a logged in user          (hajar) 
+GET	http://localhost:8000/api/showMyPostgradApplications
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+-------------------------------------
+create a postgraduate application for external guests       (done)  (hajar) 
+POST	http://127.0.0.1:8000/api/createExternalPostgradApplication	
+//in form-data:
+attachment: //some file
+bachelor_certificate: //some file
+academic_year:2022-2023
+department:bio
+gender:female
+student_name:fatma
+nationality:la la land
+registration_date:2023-11-11
+credit_hours:1.5
+preliminary_date:2023-10-12
+telephone_number:0207875578
+employer:youssef
+employer_address:down town
+grade:A+
+faculty_name:faculty of computers and ai
+phone_number:01551939631
+graduation_date:2023-10-10
+university_name:cairo uni
+research_topic_AR:بحث
+research_topic_EN:research
+research_interest:robotics
+target:college staff
+specialization:content management system
+field_of_research:archiving systems
+supervisor_name:iman helal
+supervisor_role:professor
+---------------------------------------
+get an external postgraduate application      (hajar) 
+GET	http://127.0.0.1:8000/api/getExternalPostgradApplication/1
+------------------------------------------
+get all external postgraduate applications      (hajar) 
+GET	http://127.0.0.1:8000/api/showExternalPostgradApplications
+----------------------------------
+get the logged in user's notifications
+GET	http://127.0.0.1:8000/api/getMyNotifications
+//takes a token in the headers 
+//header key: Authorization
+//header value: Bearer theToken
+-----------------------------------
+get the number of unseen notifications of a logged in user
+GET 	http://127.0.0.1:8000/api/getUnreadNotificationsCountForUser
+
+------------------------------------
+for chatting we redirect to whatsapp 
+for the frontend part add (https://wa.me/$phone_numberVariable) to the href of the chat icon
+either validate that user phone number must include country key in the update page or add it to the href (https://wa.me/2$phone_numberVariable)
+GET 	http://127.0.0.1:8000/api/getPhoneNumber/user_id
+-------------------------------------------------------
+get all admins with their details          (hajar) 
+GET 	http://127.0.0.1:8000/api/getAllAdmins
+-----------------------------------------------------
+get admin's profile given his id            (hajar) 
+GET	http://127.0.0.1:8000/api/getAdminProfile/{id}
+-------------------------------------------------
+
+get the courses assigned to a logged in user            (hajar) 
+GET	http://127.0.0.1:8000/api/getMyAssignedCourses
+-------------------------------------------------
+get course details (with list of profs and tas)          (hajar) 
+GET 	http://127.0.0.1:8000/api//getCourseDetails/{id}
+------------------------------------------------
+            CHANGE IS_ACTIVE
+   COMMANDS:
+RUN:php artisan schedule:run
+UPDATE: php artisan user-status:update
+LIST ALL: php artisan schedule:list
+    ADD TO TASK SCHEDULER
+1- get path of project using cmd: 1-cd 'to path'
+                                  2-pwd ->will return path
+2- get xampp php path: 1-open xampp panel ->choose shell -> write 'where php' -> copy path 
+
+3-Open  Task Scheduler 
+
+4- click on "Create Task" in the right-hand pane.
+
+5- In the "Create Task" dialog box, give the task a name (any name) and select the operating system version that you're running.
+
+6- In the "Triggers" tab, click "New" to create a new trigger for the task.
+
+7- In the "New Trigger" dialog box, configure the trigger settings for when you want the task to run. You can choose to run the task daily, weekly, or monthly, and specify a specific time for the task to run.
+
+8- In the "Actions" tab, click "New" to create a new action for the task.
+
+9- In the "New Action" dialog box, configure the action settings for the task. For the "Program/script" field, enter the full path to the php.exe file on your system, followed by a space and the full path to the artisan file in your Laravel project directory. For example:
+C:\xampp\php\php.exe C:\Users\toqam\new_myproject_5\artisan schedule:run
+C:\xampp\php\php.exe->from xampp(step num 2)
+C:\Users\toqam\new_myproject_5\artisan schedule:run (step num 1 +\artisan schedule:run)
+Click "OK" to save the action, and then click "OK" again to save the task.
+
+10- The task is now created and configured to run automatically at the specified interval.
+11- You can verify that the task is running by checking the "Last Run Time" column in the Task Scheduler.

@@ -1,0 +1,79 @@
+
+<div class=" w-100 pt-4 background py-5 px-4">
+  <h2 class="text-center mainfntclr mb-3"> {{'My Announcements'|translate}}</h2>
+  <div class="announcements   overflow-auto">
+    <div class="" *ngFor="let  announcment of announcmentArray">
+     <div class="bg-white announcement  pt-3 pb-3 mb-3   border border-3 border-dark  rounded-5">
+
+      <a class="text-decoration-none float-end mainfntclr"  >
+        <i (click)="update(announcment.announcement_id)"
+        role="button"
+        class="fa fa-edit me-4"></i></a>
+          <a class=" me-5 float-end  mainfntclr"  >
+            <i
+            role="button"
+             data-bs-toggle="modal"
+            [attr.data-bs-target]="'#staticBackdrop' + announcment.announcement_id"
+            data-bs-target="#staticBackdrop"
+             class=" fa-solid fa-trash  me-3 mt-1 float-end  mainfntclr"> </i>
+          </a>
+     <div class="modal fade"
+         id="staticBackdrop"
+          data-bs-backdrop="static"
+           data-bs-keyboard="false"
+           [attr.id]="'staticBackdrop' + announcment.announcement_id"
+           tabindex="-1"
+           aria-labelledby="staticBackdropLabel"
+            aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">{{ 'Archive Announcement' | translate }}</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                {{ 'Are you Sure You Want to Archive' | translate }} {{announcment.title}}?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Close' | translate }}</button>
+                <button  type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="Archive(announcment.announcement_id)" >{{ 'Archive' | translate }}</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="d-flex">
+
+
+        <!-- <div><img *ngIf="announcment.user_img_url?.endsWith('media')" src="" alt=""> <i class="fa-solid mx-3 fs-1 fa-circle-user"></i></div>
+        <div class="w-100"><img  *ngIf="!announcment.user_img_url?.endsWith('media')" [src]="announcment.user_img_url" alt="" class="rounded-circle w-100"> </div> -->
+        <div class="clas ms-3 me-2">
+          <img *ngIf="!announcment.user_img_url?.endsWith('media')" [src]="announcment.user_img_url" class=" profileImage rounded-circle w-100">
+          <i *ngIf="announcment.user_img_url?.endsWith('media')" class=" fa-solid  font fa-circle-user"></i>
+      </div>
+
+        <div>
+          <h4 class="username">{{announcment.user_full_name}}</h4>
+          <h6 class=" ps-2 me-auto time">{{announcment.datetime.split(',')}}</h6>
+        </div>
+      </div>
+      <div class="fw-bold ms-3">
+        {{announcment.title}}
+      </div>
+
+      <p class="mx-3 w-75 text-center">
+        {{announcment.body}}
+
+      </p>
+      <div  class="border-2 ms-3 form-control w-25" *ngIf="!announcment.file.endsWith('media')">
+        <a   class="text-decoration-none mainfntclr" [href]="announcment.file" target="_blank">{{FileName(announcment.file)}}</a>
+    </div>
+     </div>
+
+
+
+
+
+
+    </div>
+  </div>
